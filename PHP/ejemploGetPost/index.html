@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario GET y POST</title>
+  <script src="funciones.js"></script>
+</head>
+<body>
+  <h2>Formulario de Datos Personales</h2>
+
+  <form id="miFormulario" action="funciones.php?accion=guardar" method="get">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required><br><br>
+
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" id="apellidos" name="apellidos" required><br><br>
+
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" name="direccion" required><br><br>
+
+    <label for="sexo">Sexo:</label>
+    <select id="sexo" name="sexo">
+      <option value="masculino">Masculino</option>
+      <option value="femenino">Femenino</option>
+      <option value="otro">Otro</option>
+    </select><br><br>
+
+    <label>
+      <input type="checkbox" id="estudios" name="estudios" value="Grado Medio">
+      Estudios de grado medio
+    </label><br><br>
+
+    <!-- GET / POST seçici -->
+    <label for="metodo">Método:</label>
+    <select id="metodo">
+      <option value="get">GET</option>
+      <option value="post">POST</option>
+    </select><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+</body>
+</html>

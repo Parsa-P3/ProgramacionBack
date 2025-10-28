@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "descripcion": "Instalar XAMPP y configurar el entorno de desarrollo.",
+        "estado": "completada"
+    },
+    {
+        "id": 3,
+        "descripcion": "Dise\u00f1ar la interfaz de usuario (HTML\/CSS) para el formulario de agregar.",
+        "estado": "en progreso"
+    },
+    {
+        "id": 4,
+        "descripcion": "Revisar la l\u00f3gica de asignaci\u00f3n de ID en funciones.php.",
+        "estado": "pendiente"
+    }
+]

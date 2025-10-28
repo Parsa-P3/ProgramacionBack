@@ -1,0 +1,169 @@
+/* --- Estilos Generales y Tipografía --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Fondo suave */
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+    border-radius: 12px;
+}
+
+h1 {
+    color: #007bff; /* Azul primario */
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #007bff;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #495057;
+    margin-top: 30px;
+    padding-left: 5px;
+    border-left: 5px solid #ccc;
+    margin-bottom: 20px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    margin: 30px 0;
+}
+
+/* --- Formularios --- */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px; /* Elemanlar arası boşluk */
+    padding: 20px;
+    background: #f8f9fa; /* Fondo ligero para el formulario */
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+label {
+    font-weight: 600;
+    color: #555;
+}
+
+input[type="text"], input[type="number"], select {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #28a745; /* Botón verde para acciones positivas */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #1e7e34;
+}
+
+/* --- Tabla de Tareas --- */
+table {
+    width: 100%;
+    border-collapse: separate; /* Ayrı sınırlar için */
+    border-spacing: 0;
+    margin-top: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden; /* Köşeleri yuvarlamak için */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+th {
+    background-color: #343a40; /* Fondo oscuro para cabecera */
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+/* --- Colores por Estado de Tarea --- */
+.tarea-pendiente { 
+    background-color: #fff3cd; /* Amarillo claro */
+    border-left: 5px solid #ffc107; 
+}
+.tarea-en-progreso { 
+    background-color: #d1ecf1; /* Azul claro */
+    border-left: 5px solid #17a2b8; 
+}
+.tarea-completada { 
+    background-color: #d4edda; /* Verde claro */
+    border-left: 5px solid #28a745; 
+}
+
+/* --- Botones y Enlaces de Acción --- */
+td a {
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+td a:hover {
+    text-decoration: none;
+    background-color: #e9ecef;
+}
+
+.btn-eliminar {
+    color: #dc3545; /* Rojo */
+    font-weight: bold;
+}
+
+.btn-eliminar:hover {
+    background-color: #f8d7da;
+}
+
+/* --- Mensajes de Feedback --- */
+.mensaje {
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.mensaje.green {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.mensaje.red {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
