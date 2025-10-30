@@ -1,17 +1,12 @@
-// funciones.js
 
+// al cargar la pagina :
 window.onload = function () {
   const form = document.getElementById("miFormulario");
   const metodoSelect = document.getElementById("metodo");
 
   form.addEventListener("submit", function (event) {
-    // Kullanıcının seçtiği yöntemi al
+    // Recibir el metodo elegido por usuario
     const metodo = metodoSelect.value;
-
-    // Formun gönderme metodunu değiştir
     form.method = metodo;
-
-    // Sadece kontrol için console'a yazalım
-    console.log("Formulario enviado con método:", metodo);
   });
 };
