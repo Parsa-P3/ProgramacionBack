@@ -1,0 +1,120 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+#principal {
+  max-width: 1100px; 
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+/* === TEMEL GRID AYARI: 6 SÜTUN === */
+/*
+Sütun Dağılımı: 
+1. Başlık (3fr)
+2. Yazar (2fr)
+3. Durum (1.5fr)
+4. Konum (1.5fr)
+5. Prestado/Ödünç (1fr)
+6. Butonlar (2fr)
+*/
+.grid-6-cols {
+  display: grid;
+  grid-template-columns: 3fr 2fr 1.5fr 1.5fr 1fr 2fr; 
+  gap: 8px; 
+  align-items: center;
+}
+
+#cabecera {
+ /* background-color: #1976d2; */
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 6px 6px 0 0;
+  text-align: center;
+}
+
+#filtro {
+  gap: 10px;
+  padding: 10px;
+  background-color: #e9eef3;
+/*  border-bottom: 2px solid #1976d2; */
+}
+
+#filtro div:empty {
+    padding: 0;
+}
+
+#filtro input,
+#filtro select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#listado {
+    display: block; 
+}
+
+#listado .row,
+#listado .row-add {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+#listado .row-add {
+    background-color: #e3f2fd;
+    border-bottom: 2px solid #1976d2;
+}
+
+#listado > div > div {
+  padding: 6px;
+}
+
+#listado input[type="text"],
+#listado select {
+  width: 95%; 
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#listado input[type="checkbox"] {
+    display: block;
+    margin: 0 auto;
+    width: 18px;
+    height: 18px;
+}
+
+#listado input[type="button"] {
+  padding: 6px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  transition: background-color 0.2s;
+}
+/*
+#listado input[value="ADD"] {
+  background-color: #4caf50;
+}
+#listado input[value="MOD"] {
+  background-color: #ffb300;
+}
+#listado input[value="DEL"] {
+  background-color: #e53935;
+}
+  */
+

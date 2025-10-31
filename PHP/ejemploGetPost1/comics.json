@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "titulo": "SpiderMan",
+        "autor": "Javi P.",
+        "estado": "pendiente de leer",
+        "prestado": false,
+        "localizacion": "Estante A"
+    },
+    {
+        "id": 2,
+        "titulo": "Batman",
+        "autor": "Jorge M.",
+        "estado": "pendiente de leer",
+        "prestado": false,
+        "localizacion": "Estante C"
+    },
+    {
+        "id": 3,
+        "titulo": "Superman",
+        "autor": "Pedro N.",
+        "estado": "leyendo",
+        "prestado": true,
+        "localizacion": "Estante B"
+    }
+]

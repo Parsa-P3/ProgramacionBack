@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "titulo": "El Caballero Oscuro",
+        "director": "Christopher Nolan",
+        "genero": "accion",
+        "vista": false,
+        "plataforma": "HBO Max"
+    },
+    {
+        "id": 2,
+        "titulo": "Pulp Fiction",
+        "director": "Quentin Tarantino",
+        "genero": "drama",
+        "vista": true,
+        "plataforma": "DVD"
+    },
+    {
+        "id": 3,
+        "titulo": "La Vida es Bella",
+        "director": "Roberto Benigni",
+        "genero": "comedia",
+        "vista": false,
+        "plataforma": "Disney+"
+    },
+    {
+        "id": 4,
+        "titulo": "a",
+        "director": "b",
+        "genero": "accion",
+        "vista": true,
+        "plataforma": "c"
+    }
+]

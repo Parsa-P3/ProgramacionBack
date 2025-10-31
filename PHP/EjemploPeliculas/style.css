@@ -1,0 +1,109 @@
+/* ==== ESTILOS BASE Y ESTRUCTURA (Para 6 columnas) ==== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0f0f0; /* Fondo muy claro */
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+#principal {
+    max-width: 1100px; /* Suficiente espacio para 6 columnas */
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #ccc; /* Borde simple */
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* === GRID DE 6 COLUMNAS === */
+/* Distribución de columnas (ajusta esto si necesitas diferentes anchos) */
+.grid-6-cols {
+    display: grid;
+    /* Ejemplo de distribución: 3fr 2fr 1.5fr 1.5fr 1fr 2fr */
+    grid-template-columns: 3fr 2fr 1.5fr 1.5fr 1fr 2fr; 
+    gap: 10px;
+    align-items: center;
+}
+
+/* ==== CABECERA (Header) ==== */
+#cabecera {
+    background-color: #555; /* Gris oscuro neutro */
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* ==== FILTROS ==== */
+#filtro {
+    padding: 10px 0;
+    background-color: #e8e8e8; /* Gris muy claro */
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#filtro input,
+#filtro select {
+    width: 95%;
+    padding: 5px;
+    border: 1px solid #999;
+    border-radius: 3px;
+}
+
+/* ==== LISTADO (Filas de datos) ==== */
+#listado {
+    /* No necesitamos grid aquí, las filas ya tienen .grid-6-cols */
+}
+
+/* Estilo para todas las filas de datos */
+#listado .row, 
+#listado .row-add {
+    padding: 8px 0;
+    border-bottom: 1px dotted #ddd;
+}
+
+/* Estilo para la fila de añadir */
+#listado .row-add {
+    background-color: #f5f5f5; /* Gris muy pálido para diferenciar */
+    border-bottom: 2px solid #999;
+    margin-bottom: 10px;
+}
+
+/* Estilo de los campos de texto y select en las filas */
+.grid-6-cols > div > input[type="text"],
+.grid-6-cols > div > select {
+    width: 95%; 
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+/* Checkbox centrado */
+.grid-6-cols > div > input[type="checkbox"] {
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* ==== BOTONES (Estilo funcional y sin color) ==== */
+.grid-6-cols input[type="button"] {
+    padding: 6px 10px;
+    margin-right: 5px;
+    border: 1px solid #777;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+    background-color: #ddd; 
+    transition: background-color 0.2s;
+}
+
+.grid-6-cols input[type="button"]:hover {
+    background-color: #ccc;
+}
