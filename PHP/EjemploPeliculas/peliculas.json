@@ -22,13 +22,5 @@
         "genero": "comedia",
         "vista": false,
         "plataforma": "Disney+"
-    },
-    {
-        "id": 4,
-        "titulo": "a",
-        "director": "b",
-        "genero": "accion",
-        "vista": true,
-        "plataforma": "c"
     }
 ]

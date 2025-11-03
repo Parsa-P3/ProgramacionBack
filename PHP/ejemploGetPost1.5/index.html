@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Colección de Películas - LocalStorage</title>
+    <script src="funciones.js"></script> 
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body onload="cargarPeliculas();"> 
+    <div id="principal">
+        <div id="cabecera" class="grid-6-cols">
+            <div>Título</div>
+            <div>Director</div>
+            <div>Año</div>
+            <div>Género</div>
+            <div>Vista</div>
+            <div>Acciones</div>
+        </div>
+
+        <div id="filtro" class="grid-6-cols">
+            <div><input type="text" id="filTitulo" onkeyup="filtrar();" placeholder="Filtrar Título"></div>
+            <div></div> 
+            <div></div> 
+            <div>
+                <select id="filGenero" onchange="filtrar()">
+                    <option value="">-- Todos --</option>
+                    <option value="accion">Acción</option>
+                    <option value="drama">Drama</option>
+                    <option value="comedia">Comedia</option>
+                </select>
+            </div>
+            <div></div> 
+            <div></div> 
+        </div>
+        
+        <div class="row-add grid-6-cols">
+            <div><input type="text" id="titulo0" placeholder="Título" /></div>
+            <div><input type="text" id="director0" placeholder="Director" /></div>
+            <div><input type="text" id="anyo0" placeholder="Año" /></div>
+            <div>
+                <select id="genero0">
+                    <option value="accion">Acción</option>
+                    <option value="drama">Drama</option>
+                    <option value="comedia">Comedia</option>
+                </select>
+            </div>
+            <div><input type="checkbox" id="vista0" /></div>
+            <div>
+                <input type="button" onclick="anadir();" value="Añadir" />
+            </div>
+        </div>
+
+        <div id="listado">
+            </div>
+    </div>
+</body>
+</html>

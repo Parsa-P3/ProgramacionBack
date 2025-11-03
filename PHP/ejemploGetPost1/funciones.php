@@ -1,10 +1,7 @@
 <?php
-// CONFIGURACIÓN: USAMOS EL ARCHIVO COMICS.JSON
-define('ARCHIVO_COMICS', 'comics.json'); 
-
 // Bloque principal que gestiona las peticiones POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtenemos la acción del query string
+    // Obtenemos la acción 
     $accion = $_GET['action'] ?? '';
 
     // CAMPOS DEL CÓMIC
@@ -13,25 +10,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $autor = $_POST['autor'] ?? '';
     $estado = $_POST['estado'] ?? '';
     $localizacion = $_POST['localizacion'] ?? '';
-    // Recibimos 'true' o 'false' como string desde JS.
     $prestado = $_POST['prestado'] === 'true' ? true : false; 
 
     // Llamamos a la función CRUD correspondiente
-    switch ($accion) {
-        case 'guardar':
-            modificarComic($id, $titulo, $autor, $estado, $prestado, $localizacion);
+    if ($accion == 'guardar') {
+         modificarComic($id, $titulo, $autor, $estado, $prestado, $localizacion);
             volver();
-            break;
-        case 'eliminar':
-            eliminarComic($id);
-            volver();
-            break;
-        case 'anadir':
-            anadirComic($titulo, $autor, $estado, $prestado, $localizacion);
-            volver();
-            break;
-
-        default:
+            
+    }elseif ($accion == 'eliminar') {
+        eliminarComic($id);
+        volver();
+    }elseif ($accion == 'anadir'){
+        anadirComic($titulo, $autor, $estado, $prestado, $localizacion);
+        volver();
     }
 }
 
@@ -46,7 +37,7 @@ function volver()
 
 function anadirComic($titulo, $autor, $estado, $prestado, $localizacion)
 {
-    $comics = cargarJSON(ARCHIVO_COMICS);
+    $comics = cargarJSON('comics.json');
     if ($comics === null) { return false; }
 
     $id = generarIdComic($comics); // Generamos el ID
@@ -56,13 +47,13 @@ function anadirComic($titulo, $autor, $estado, $prestado, $localizacion)
 
     $comics[] = $nuevoComic;
 
-    guardarJSON(ARCHIVO_COMICS, $comics);
+    guardarJSON('comics.json', $comics);
     return true;
 }
 
 function modificarComic($id, $titulo, $autor, $estado, $prestado, $localizacion)
 {
-    $comics = cargarJSON(ARCHIVO_COMICS);
+    $comics = cargarJSON('comics.json');
     if ($comics === null) { return false; }
 
     foreach ($comics as &$comic) {
@@ -77,13 +68,13 @@ function modificarComic($id, $titulo, $autor, $estado, $prestado, $localizacion)
     }
     unset($comic); // Es crucial liberar la referencia
 
-    guardarJSON(ARCHIVO_COMICS, $comics);
+    guardarJSON('comics.json', $comics);
     return true;
 }
 
 function eliminarComic($id)
 {
-    $comics = cargarJSON(ARCHIVO_COMICS);
+    $comics = cargarJSON('comics.json');
     if ($comics === null) { return false; }
 
     foreach ($comics as $index => $comic) {
@@ -95,14 +86,14 @@ function eliminarComic($id)
 
     $comics = array_values($comics); // Reindexa el array después de la eliminación
 
-    guardarJSON(ARCHIVO_COMICS, $comics);
+    guardarJSON('comics.json', $comics);
     return true;
 }
 
 function listarComics($titulo, $estado)
 {
     // Carga los datos desde el JSON
-    $comics = cargarJSON(ARCHIVO_COMICS);
+    $comics = cargarJSON('comics.json');
 
     if ($comics === null) {
         return []; 
@@ -126,8 +117,6 @@ function listarComics($titulo, $estado)
 
     return $comics;
 }
-
-// === FUNCIONES AUXILIARES ===
 
 function generarIdComic($comics): int
 {
@@ -171,6 +160,9 @@ function obtenerElementoMaximo($datos, $propiedad)
     return $maximo->id;
 }
 
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
 
 function cargarJSON($ruta)
 {

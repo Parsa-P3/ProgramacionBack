@@ -15,7 +15,7 @@ $comics = listarComics($filTitulo, $filEstado);
 <head>
     <title>Colección de Cómics</title>
     <script src="funciones.js"></script> 
-    <link rel="stylesheet" > 
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <form id="frm" name="frm" action="funciones.php" method="post">
