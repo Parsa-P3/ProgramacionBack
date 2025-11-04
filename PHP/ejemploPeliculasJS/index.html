@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Peliculas</title>
+</head>
+<body>
+  <script>
+    // Simulamos almacenamiento con localStorage (como si fuera un archivo)
+    let peliculas = JSON.parse(localStorage.getItem("peliculas") || "[]");
+
+    function guardar() {
+      localStorage.setItem("peliculas", JSON.stringify(peliculas));
+    }
+
+    function agregarPelicula(titulo, director, estado, prestado, localizacion) {
+      if (!titulo || !director) {
+        console.log(" Debes ingresar título y director.");
+        return;
+      }
+      const pelicula = { titulo, director, estado, prestado, localizacion };
+      peliculas.push(pelicula);
+      guardar();
+      console.log(` Película agregada: ${titulo}`);
+    }
+
+    function listarPeliculas() {
+      console.log(" Lista de películas:");
+      if (peliculas.length === 0) {
+        console.log("No hay películas registradas.");
+        return;
+      }
+      peliculas.forEach((p, i) => {
+        console.log(
+          `${i + 1}. "${p.titulo}" - ${p.director} | Estado: ${p.estado} | ` +
+          `Prestado: ${p.prestado ? "Sí" : "No"} | Localización: ${p.localizacion}`
+        );
+      });
+    }
+
+    function eliminarPelicula(titulo) {
+      const index = peliculas.findIndex(p => p.titulo.toLowerCase() === titulo.toLowerCase());
+      if (index === -1) {
+        console.log(` No se encontró la película "${titulo}".`);
+        return;
+      }
+      peliculas.splice(index, 1);
+      guardar();
+      console.log(` Película "${titulo}" eliminada.`);
+    }
+
+    function cambiarEstado(titulo, nuevoEstado) {
+      const pelicula = peliculas.find(p => p.titulo.toLowerCase() === titulo.toLowerCase());
+      if (!pelicula) {
+        console.log(` No se encontró la película "${titulo}".`);
+        return;
+      }
+      pelicula.estado = nuevoEstado;
+      guardar();
+      console.log(` Estado de "${titulo}" actualizado a "${nuevoEstado}".`);
+    }
+
+    console.log(" --- GESTOR DE PELÍCULAS --- ");
+    console.log("funciones para consola:");
+    console.log("agregarPelicula(titulo, director, estado, prestado, localizacion)");
+    console.log("listarPeliculas()");
+    console.log("eliminarPelicula(titulo)");
+    console.log("cambiarEstado(titulo, nuevoEstado)");
+
+    /* Ejemplo de uso automático (puedes comentar o borrar)
+    agregarPelicula("Inception", "Christopher Nolan", "pendiente", false, "estantería1");
+    agregarPelicula("The Batman", "Matt Reeves", "viendo", true, "mueble");
+    listarPeliculas();
+    cambiarEstado("Inception", "vista");
+    listarPeliculas();
+    eliminarPelicula("The Batman");
+    listarPeliculas();
+    */
+  </script>
+</body>
+
+</html>
