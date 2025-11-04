@@ -91,7 +91,7 @@ $comics = leerComics($archivo);
     <button name="agregar">Agregar</button>
 </form>
 
-<hr>
+
 
 <h2>Lista de cómics</h2>
 <table border="1" cellpadding="5">
@@ -107,7 +107,7 @@ $comics = leerComics($archivo);
 <?php endforeach; ?>
 </table>
 
-<hr>
+
 
 <h2>Eliminar cómic</h2>
 <form method="post">
