@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestor de Cómics</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    input, select, button { margin: 5px; }
+    table { border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #aaa; padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h1>Gestión de Cómics</h1>
+
+  <h3>Agregar nuevo cómic</h3>
+  <input id="titulo" placeholder="Título">
+  <input id="autor" placeholder="Autor">
+  <select id="estado">
+    <option value="pendiente">Pendiente</option>
+    <option value="leyendo">Leyendo</option>
+    <option value="leído">Leído</option>
+  </select>
+  <select id="localizacion">
+    <option value="estanteria1">Estantería 1</option>
+    <option value="estanteria2">Estantería 2</option>
+    <option value="mueble">Mueble</option>
+  </select>
+  <label>Prestado:</label>
+  <input type="checkbox" id="prestado">
+  <button onclick="agregarComic()">Agregar</button>
+
+  <h3>Lista de cómics</h3>
+  <table id="tablaComics">
+    <tr>
+      <th>Título</th>
+      <th>Autor</th>
+      <th>Estado</th>
+      <th>Prestado</th>
+      <th>Localización</th>
+      <th>Acciones</th>
+    </tr>
+  </table>
+
+  <script>
+    // Cargar cómics desde archivo (simulado con localStorage)
+    let comics = JSON.parse(localStorage.getItem("comics") || "[]");
+    mostrarComics();
+
+    function guardar() {
+      localStorage.setItem("comics", JSON.stringify(comics));
+    }
+
+    function agregarComic() {
+      const titulo = document.getElementById("titulo").value.trim();
+      const autor = document.getElementById("autor").value.trim();
+      const estado = document.getElementById("estado").value;
+      const prestado = document.getElementById("prestado").checked;
+      const localizacion = document.getElementById("localizacion").value;
+
+      if (!titulo || !autor) return alert("Por favor, completa todos los campos");
+
+      comics.push({ titulo, autor, estado, prestado, localizacion });
+      guardar();
+      mostrarComics();
+
+      document.getElementById("titulo").value = "";
+      document.getElementById("autor").value = "";
+      document.getElementById("prestado").checked = false;
+    }
+
+    function mostrarComics() {
+      const tabla = document.getElementById("tablaComics");
+      tabla.innerHTML = `
+        <tr>
+          <th>Título</th><th>Autor</th><th>Estado</th><th>Prestado</th>
+          <th>Localización</th><th>Acciones</th>
+        </tr>`;
+      comics.forEach((comic, i) => {
+        tabla.innerHTML += `
+          <tr>
+            <td>${comic.titulo}</td>
+            <td>${comic.autor}</td>
+            <td>
+              <select onchange="cambiarEstado(${i}, this.value)">
+                <option ${comic.estado=="pendiente"?"selected":""}>pendiente</option>
+                <option ${comic.estado=="leyendo"?"selected":""}>leyendo</option>
+                <option ${comic.estado=="leído"?"selected":""}>leído</option>
+              </select>
+            </td>
+            <td>${comic.prestado ? "Sí" : "No"}</td>
+            <td>${comic.localizacion}</td>
+            <td><button onclick="eliminarComic(${i})">Eliminar</button></td>
+          </tr>`;
+      });
+    }
+
+    function eliminarComic(i) {
+      comics.splice(i, 1);
+      guardar();
+      mostrarComics();
+    }
+
+    function cambiarEstado(i, nuevoEstado) {
+      comics[i].estado = nuevoEstado;
+      guardar();
+    }
+  </script>
+</body>
+</html>
