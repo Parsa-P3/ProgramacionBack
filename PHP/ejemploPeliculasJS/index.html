@@ -24,19 +24,19 @@
       console.log(` Película agregada: ${titulo}`);
     }
 
-    function listarPeliculas() {
-      console.log(" Lista de películas:");
-      if (peliculas.length === 0) {
-        console.log("No hay películas registradas.");
-        return;
-      }
-      peliculas.forEach((p, i) => {
-        console.log(
-          `${i + 1}. "${p.titulo}" - ${p.director} | Estado: ${p.estado} | ` +
-          `Prestado: ${p.prestado ? "Sí" : "No"} | Localización: ${p.localizacion}`
-        );
-      });
+      function listarPeliculas() {
+    console.log(" Lista de películas:");
+    if (peliculas.length === 0) {
+      console.log("No hay películas registradas.");
+      return;
     }
+    peliculas.forEach((p, i) => {
+      console.log(
+        `${i + 1}. "${p.titulo}" - ${p.director} | Estado: ${p.estado} | ` +
+        `Prestado: ${p.prestado ? "Sí" : "No"} | Localización: ${p.localizacion}`
+      );
+    });
+  }
 
     function eliminarPelicula(titulo) {
       const index = peliculas.findIndex(p => p.titulo.toLowerCase() === titulo.toLowerCase());

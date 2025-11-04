@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+// Guardar un objeto o array
+const datos = { nombre: "Parsa", edad: 30 };
+localStorage.setItem("miClave", JSON.stringify(datos));
+
+// Leerlo de nuevo
+const leido = JSON.parse(localStorage.getItem("miClave") || "null");
+// leido -> { nombre: "Parsa", edad: 30 }
+
+// En el contexto del archivo: guardar el array de películas
+localStorage.setItem("peliculas", JSON.stringify(peliculas));
+
+// Leer el array de películas (con fallback a array vacío)
+let peliculas = JSON.parse(localStorage.getItem("peliculas") || "[]");
+
+// Eliminar una clave concreta
+localStorage.removeItem("miClave");
+
+// Borrar todo el almacenamiento local
+localStorage.clear();
+    </script>
+</body>
+</html>
