@@ -35,7 +35,7 @@ $comics = listarComics($filTitulo, $filEstado);
                 <div>Prestado</div>
                 <div>Botonera</div>
             </div>
-
+ 
             <div id="filtro" class="grid-6-cols">
                 <div><input type="text" value="<?= $filTitulo ?>" id="filTitulo" onchange="filtrar()" placeholder="Filtrar Título"></div>
                 <div></div> 

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $director = $_POST['director'] ?? ''; // Antes: autor
     $genero = $_POST['genero'] ?? ''; // Antes: estado
     $plataforma = $_POST['plataforma'] ?? ''; // Antes: localizacion
-    // Recibimos 'true' o 'false' como string desde JS (Antes: prestado)
+    // Recibims 'true' o 'false' como string desde JS (Antes: prestado)
     $vista = $_POST['vista'] === 'true' ? true : false; 
 
     // Llamamos a la función CRUD correspondiente
