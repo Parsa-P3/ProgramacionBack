@@ -1,0 +1,115 @@
+
+        /* --- ESTILOS GENERALES DE CÓMIC --- */
+        body { 
+            font-family: 'Bangers', cursive; /* Fuente temática */
+            margin: 0; 
+            padding: 20px;
+            background-color: #0d002c; /* Fondo Amarillo Brillante */
+            color: #1a1a1a;
+            border: 15px solid #000; /* Borde grueso para simular viñeta */
+        }
+        .container { 
+            
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex; 
+            gap: 20px; 
+            flex-wrap: wrap; /* Permite que las secciones se envuelvan en pantallas pequeñas */
+        }
+        h1 {
+            color: #ffffff; /* Rojo principal */
+            text-align: center;
+            font-size: 4em;
+            text-shadow: 4px 4px 0 #000; /* Efecto de título de cómic */
+            margin-bottom: 25px;
+            border-bottom: 5px solid #000;
+            padding-bottom: 10px;
+        }
+        h2 { 
+            color: #000000; /* Azul de cómic */
+            font-size: 2em;
+            text-shadow: 2px 2px 0 #fff;
+            border-bottom: 3px solid #000; 
+            padding-bottom: 5px; 
+            margin-top: 0;
+        }
+
+        /* --- ESTILOS DE VIÑETA (SECCIONES) --- */
+        .panel {
+            background-color: #ffffff63;
+            padding: 20px; 
+            border: 3px solid #000; 
+            border-radius: 10px;
+            box-shadow: 8px 8px 0 #000000a0; /* Sombra dramática */
+            margin-bottom: 25px;
+        }
+
+        #crud-controls {
+            flex: 1; /* Ocupa el espacio justo necesario */
+            min-width: 300px;
+        }
+        #listado-comics-panel {
+            flex: 2; /* Ocupa más espacio para la lista */
+            min-width: 500px;
+        }
+
+        /* --- ESTILOS DE FORMULARIO Y BOTONES --- */
+        label { 
+            display: block; 
+            margin-top: 10px; 
+            font-size: 1.2em;
+            color: #000000;
+        }
+        input[type="text"], select { 
+            width: 100%; 
+            padding: 8px; 
+            margin: 5px 0 15px 0; 
+            border: 2px solid #000; 
+            box-sizing: border-box; 
+            font-family: Arial, sans-serif;
+        }
+        
+        button { 
+            background-color: #d80000; /* Rojo */
+            color: #fff; 
+            padding: 10px 15px; 
+            margin: 8px 0; 
+            border: 3px solid #000; /* Borde de cómic */
+            cursor: pointer; 
+            width: 100%; 
+            font-family: 'Bangers', cursive;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            box-shadow: 3px 3px 0 #000; /* Efecto de botón presionado */
+            transition: all 0.1s;
+        }
+        button:active {
+            box-shadow: 1px 1px 0 #000;
+            transform: translate(2px, 2px);
+        }
+        
+        /* Estilo para el botón de eliminar */
+        .delete-btn {
+            background-color: #FF0000; /* Rojo más fuerte */
+        }
+
+        /* --- ESTILOS DE ÍTEMS DE LA LISTA --- */
+        .comic-item { 
+            border: 2px solid #000000; /* Borde punteado/rayado */
+            background-color: #f7f7f7bd;
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border-radius: 5px;
+            font-family: Arial, sans-serif; /* Usar fuente legible para el contenido */
+        }
+        .comic-item strong {
+            display: block;
+            /* font-family: 'Bangers', cursive; */
+            font-size: 1.5em;
+            color: #000000;
+            margin-bottom: 5px;
+            
+        }
+        .estado-leido { color: rgb(0, 0, 0); font-weight: bold; }
+        .estado-leyendo { color: rgb(0, 0, 0); font-weight: bold; }
+        .estado-pendiente { color: rgb(0, 0, 0); font-weight: bold; }

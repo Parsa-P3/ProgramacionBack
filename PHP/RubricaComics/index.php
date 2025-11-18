@@ -51,7 +51,7 @@ $comics = listarComics($ftitulo, $fautor, $festado, $fprestado, $flocalizacion);
             <div><input type="text" value="<?= $fautor ?>" id="fautor" onchange="filtrar()" placeholder="Buscar por Autor"></div>
              <div>
                     <!-- filtro por estado , cuando interactura el usuario con opciones empieza a filtrar -->
-                    <select name="estado" id="festado" onchange="filtrar()">
+                    <select name="festado" id="festado" onchange="filtrar()">
                         <option value="">--Estado--</option>
                         <!-- en cada opcion comprobamos si esta elegido -->
                         <option value="pendiente de leer" <?= $festado === 'pendiente de leer' ? 'selected' : '' ?>>pendiente</option>
@@ -66,19 +66,22 @@ $comics = listarComics($ftitulo, $fautor, $festado, $fprestado, $flocalizacion);
             <div></div>
 
         </div>
-
+            <!-- LISTADO DE CÓMICS
+                 Cada fila muestra controles editables (inputs/selects) con ids basados en el id del cómic.
+                 El botón Modificar recopila esos valores vía JS y envía al servidor para actualizar.
+            -->
         <div class="anadirlinea grid-6-cols filtro">
             <div><input type="text" id="NuevoTitulo" value="" placeholder="Nuevo Titulo"></div>
             <div><input type="text" id="NuevoAutor" value="" placeholder="Autor"></div>
             <div>
-                <select id="NuevoEstado">
+                <select name="NuevoEstado" id="NuevoEstado">
                     <option value="pendiente de leer">pendiente</option>
                     <option value="leyendo">leyendo</option>
                     <option value="leido">leído</option>
                 </select>
             </div>
             <div>
-                <select id="NuevoLocalizacion">
+                <select  id="NuevoLocalizacion">
                     <option value="estanteria1">estanteria1</option>
                     <option value="estanteria2">estanteria2</option>
                     <option value="mueble">mueble</option>
@@ -86,7 +89,7 @@ $comics = listarComics($ftitulo, $fautor, $festado, $fprestado, $flocalizacion);
             </div>
             <div><input type="checkbox" id="NuevoPrestado" /></div>
             <div>
-                <input type="button" onclick="anadir();" value="Añadir">
+                <input type="button" onclick="anadir();" value="Anadir" id="An">
             </div>
             
 
@@ -106,7 +109,14 @@ $comics = listarComics($ftitulo, $fautor, $festado, $fprestado, $flocalizacion);
                             <option value="leido" <?= $comic->estado === 'leido' ? 'selected' : '' ?>>leído</option>
                         </select>
                     </div>
-                    <div><input type="text" id="localizacion<?= $comic->id ?>" value="<?= htmlspecialchars($comic->localizacion) ?>" /></div>
+                    <div>
+                        <select id="localizacion<?= $comic->id ?>">
+                            <option value="estanteria1" <?= $comic->localizacion === 'estanteria1' ? 'selected' : '' ?>>estanteria1</option>
+                            <option value="estanteria2" <?= $comic->localizacion === 'estanteria2' ? 'selected' : '' ?>>estanteria2</option>
+                            <option value="mueble" <?= $comic->localizacion === 'mueble' ? 'selected' : '' ?>>mueble</option>
+                        </select>
+                    </div>
+                    <!-- <div><input type="text" id="localizacion<?= $comic->id ?>" value="<?= htmlspecialchars($comic->localizacion) ?>" /></div> -->
                     <div><input type="checkbox" id="prestado<?= $comic->id ?>" <?= $comic->prestado ? 'checked' : '' ?> /></div>
                     <div>
                         <input type="button" onclick="modificar('<?= $comic->id ?>');" value="Modificar" />

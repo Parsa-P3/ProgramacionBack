@@ -1,81 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
-  <title>Peliculas</title>
+  <title>Gestor de Cómics - ¡POW!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <script src="funciones.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+  <h1>GESTOR DE CÓMICS</h1>
+  <!-- Contenedor principal -->
+  <div class="container">
+
+    <!-- Controles CRUD -->
+    <div id="crud-controls" class="panel">
+
+      <!-- Añadir cómic -->
+      <div class="crud-form">
+        <h2>AÑADIR CÓMIC</h2>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" required>
+
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" required>
+
+        <label for="localizacion">Localización:</label >
+        <select id="localizacion" required >
+          <option value="Estanteria 1">Estanteria 1</option>
+          <option value="Estanteria 2">Estanteria 2</option>
+          <option value="Mueble X">Mueble X</option>
+
+        </select>
+
+
+        <label for="estado">Estado:</label>
+        <select id="estado" required>
+          <option value="pendiente de leer">Pendiente de Leer</option>
+          <option value="leyendo">Leyendo</option>
+          <option value="leido">Leído</option>
+        </select>
+
+        <label for="prestado">¿Prestado?</label>
+        <select id="prestado" required>
+          <option value="false">¡NO!</option>
+          <option value="true">¡SÍ!</option>
+        </select>
+        <!-- Botón para agregar cómic -->
+        <button onclick="agregarComicDesdeUI()">¡AÑADIR!</button>
+      </div>
+
+      <hr style="border-top: 2px dashed #000;">
+
+      <!-- Cambiar estado -->
+      <div class="crud-form">
+        <h2>CAMBIO DE ESTADO</h2>
+        <label for="modificarTitulo">Título o ID:</label>
+        <input type="text" id="modificarTitulo">
+
+        <label for="nuevoEstado">Nuevo Estado:</label>
+        <select id="nuevoEstado">
+          <option value="pendiente de leer">Pendiente de Leer</option>
+          <option value="leyendo">Leyendo</option>
+          <option value="leido">Leído</option>
+        </select>
+        <!-- Botón para actualizar estado -->
+        <button onclick="cambiarEstadoDesdeUI()">¡ACTUALIZAR!</button>
+      </div>
+
+      <hr style="border-top: 2px dashed #000;">
+      <!-- Eliminar cómic -->
+      <div class="crud-form">
+        <h2>BORRAR CÓMIC</h2>
+        <label for="eliminarIdentificador">Título o ID:</label>
+        <input type="text" id="eliminarIdentificador" >
+        <!-- Botón para eliminar cómic -->
+        <button class="delete-btn" onclick="eliminarComicDesdeUI()">¡ELIMINAR!</button>
+      </div>
+    </div>
+
+    <!-- Listado de cómics -->
+    <div id="listado-comics-panel" class="panel">
+      <h2>LISTADO COMPLETO</h2>
+      <div id="listado-comics">
+        <!-- Aquí se insertará la lista de cómics -->
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Simulamos almacenamiento con localStorage (como si fuera un archivo)
-    let peliculas = JSON.parse(localStorage.getItem("peliculas") || "[]");
-
-    function guardar() {
-      localStorage.setItem("peliculas", JSON.stringify(peliculas));
-    }
-
-    function agregarPelicula(titulo, director, estado, prestado, localizacion) {
-      if (!titulo || !director) {
-        console.log(" Debes ingresar título y director.");
-        return;
-      }
-      const pelicula = { titulo, director, estado, prestado, localizacion };
-      peliculas.push(pelicula);
-      guardar();
-      console.log(` Película agregada: ${titulo}`);
-    }
-
-      function listarPeliculas() {
-    console.log(" Lista de películas:");
-    if (peliculas.length === 0) {
-      console.log("No hay películas registradas.");
-      return;
-    }
-    peliculas.forEach((p, i) => {
-      console.log(
-        `${i + 1}. "${p.titulo}" - ${p.director} | Estado: ${p.estado} | ` +
-        `Prestado: ${p.prestado ? "Sí" : "No"} | Localización: ${p.localizacion}`
-      );
-    });
-  }
-
-    function eliminarPelicula(titulo) {
-      const index = peliculas.findIndex(p => p.titulo.toLowerCase() === titulo.toLowerCase());
-      if (index === -1) {
-        console.log(` No se encontró la película "${titulo}".`);
-        return;
-      }
-      peliculas.splice(index, 1);
-      guardar();
-      console.log(` Película "${titulo}" eliminada.`);
-    }
-
-    function cambiarEstado(titulo, nuevoEstado) {
-      const pelicula = peliculas.find(p => p.titulo.toLowerCase() === titulo.toLowerCase());
-      if (!pelicula) {
-        console.log(` No se encontró la película "${titulo}".`);
-        return;
-      }
-      pelicula.estado = nuevoEstado;
-      guardar();
-      console.log(` Estado de "${titulo}" actualizado a "${nuevoEstado}".`);
-    }
-
-    console.log(" --- GESTOR DE PELÍCULAS --- ");
-    console.log("funciones para consola:");
-    console.log("agregarPelicula(titulo, director, estado, prestado, localizacion)");
-    console.log("listarPeliculas()");
-    console.log("eliminarPelicula(titulo)");
-    console.log("cambiarEstado(titulo, nuevoEstado)");
-
-    /* Ejemplo de uso automático (puedes comentar o borrar)
-    agregarPelicula("Inception", "Christopher Nolan", "pendiente", false, "estantería1");
-    agregarPelicula("The Batman", "Matt Reeves", "viendo", true, "mueble");
-    listarPeliculas();
-    cambiarEstado("Inception", "vista");
-    listarPeliculas();
-    eliminarPelicula("The Batman");
-    listarPeliculas();
-    */
+    // Carga la lista automáticamente al abrir la página.
+    document.addEventListener('DOMContentLoaded', listarComicsDesdeUI);
   </script>
 </body>
 

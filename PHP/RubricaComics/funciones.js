@@ -26,12 +26,14 @@ function anadir(){
 }
 
 function modificar(id){
+    let comicId = String(id);
+
     // Obtener los valores de los campos de entrada
-    let titulo = document.getElementById("titulo" + id).value;
-    let autor = document.getElementById("autor" + id).value;
-    let estado = document.getElementById("estado" + id).value;
-    let localizacion = document.getElementById("localizacion" + id).value;
-    let prestado = document.getElementById("prestado" + id).checked;
+    let titulo = document.getElementById("titulo" + comicId).value;
+    let autor = document.getElementById("autor" + comicId).value;
+    let estado = document.getElementById("estado" + comicId).value;
+    let localizacion = document.getElementById("localizacion" + comicId).value;
+    let prestado = document.getElementById("prestado" + comicId).checked;
 
     // Escribir en los campos ocultos del formulario
     document.getElementById("titulo").value = titulo;
@@ -45,6 +47,7 @@ function modificar(id){
     let myform = document.getElementById("myform");
     myform.action = "funciones.php?accion=modificar";
     myform.submit();
+
 }
 
 function eliminar(id){
@@ -63,18 +66,16 @@ function eliminar(id){
 }
 
 function filtrar(){
-    // ⬅️ CORRECCIÓN: Obtener los valores de los 5 filtros
     let tituloFiltro = document.getElementById("ftitulo").value;
     let autorFiltro = document.getElementById("fautor").value;
     let estadoFiltro = document.getElementById("festado").value;
     let localizacionFiltro = document.getElementById("flocalizacion").value;
     let prestadoFiltro = document.getElementById("fprestado").checked;
     
-    // Asignar los valores a los campos ocultos del formulario (input hidden)
     document.getElementById('titulo').value = tituloFiltro;
     document.getElementById('autor').value = autorFiltro;
     document.getElementById('estado').value = estadoFiltro;
-    document.getElementById('localizacion').value = localizacionFiltro; // ⬅️ NUEVO: Asigna Localización
+    document.getElementById('localizacion').value = localizacionFiltro; 
     
     // Si está marcado, envía "true", si no, envía cadena vacía para ignorar el filtro.
     document.getElementById('prestado').value = prestadoFiltro ? "true" : ""; 

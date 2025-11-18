@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "titulo": "titulo1",
+        "autor": "autor1",
+        "estado": "pendiente de leer",
+        "prestado": true,
+        "localizacion": "estanteria1"
+    },
+    {
+        "id": 2,
+        "titulo": "titulo2",
+        "autor": "autor2",
+        "estado": "leyendo",
+        "prestado": false,
+        "localizacion": "mueble"
+    },
+    {
+        "id": 3,
+        "titulo": "titulo3",
+        "autor": "autor3",
+        "estado": "leido",
+        "prestado": true,
+        "localizacion": "estanteria1"
+    },
+    {
+        "id": 4,
+        "titulo": "",
+        "autor": "",
+        "estado": "leyendo",
+        "localizacion": "estanteria2",
+        "prestado": true
+    }
+]

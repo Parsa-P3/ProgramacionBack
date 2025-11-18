@@ -1,11 +1,13 @@
 <?php
 // gestionar las peticiones POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // obtener la accion
     $accion = $_GET["accion"] ?? '';
 
+
     // campos de comic
-    $id = $_GET['id'] ?? null;
+    $id = $_POST['id'] ?? null;
     $titulo = $_POST['titulo'] ?? '';
     $autor = $_POST['autor'] ?? '';
     $estado = $_POST['estado'] ?? '';
@@ -14,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Llamamos a la función CRUD correspondiente
     if($accion == 'modificar'){
-        modificarComic($id, $titulo, $autor, $estado, $prestado, $localizacion);
+        modificarComic($id, $titulo, $autor, $estado,  $localizacion , $prestado);
         volver();
     }elseif ($accion == 'eliminar') {
         eliminarComic($id);
@@ -32,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // function anadirComic(titulo, autor, estado , localizacion, prestado)
 
-function anadirComic($titulo, $autor, $estado, $localizacion, $prestado)
+function anadirComic($titulo, $autor, $estado,$prestado, $localizacion )
 {
     // cargamos nuestro dato guardado en json de comics
     $comics = cargarJSON('comics.json');
@@ -44,13 +46,15 @@ function anadirComic($titulo, $autor, $estado, $localizacion, $prestado)
     $id = generarIdComic($comics);
 
     // crear nuevo comic
+    
     $nuevoComic = (object) [
         'id' => $id,
         'titulo' => $titulo,
         'autor' => $autor,
         'estado' => $estado,
-        'localizacion' => $localizacion,
-        'prestado' => $prestado
+        'prestado' => $prestado,
+        'localizacion' => $localizacion
+        
     ];
 
     // lo asignamos a nuestro array de comics
@@ -71,8 +75,10 @@ function listarComics($titulo, $autor , $estado, $prestado , $localizacion)
         return [];
     }
 
+    $prestadoBool = ($prestado === "true");
+
     // Corregimos la función anónima para que use TODOS los parámetros de filtrado
-    $comicsFiltrados = array_filter($comics, function ($comic) use ($titulo, $autor, $estado, $prestado, $localizacion) {
+    $comicsFiltrados = array_filter($comics, function ($comic) use ($titulo, $prestadoBool ,$autor, $estado, $prestado, $localizacion) {
         
         // 1. Coincidencia de Título (Parcial e insensible a mayúsculas/minúsculas)
         $coincideTitulo = empty($titulo) || stripos($comic->titulo, $titulo) !== false;
@@ -90,7 +96,7 @@ function listarComics($titulo, $autor , $estado, $prestado , $localizacion)
         // $prestado viene como "true" o "" (cadena vacía) desde el JS/POST.
         // Si $prestado es "true", el cómic debe tener $comic->prestado == true.
         // Si $prestado es "" (vacío), no se aplica el filtro.
-        $coincidePrestado = empty($prestado) || ($comic->prestado === true);
+        $coincidePrestado = empty($prestado) || ($prestadoBool && $comic->prestado === true);
         
         // Devolver true solo si el cómic coincide con TODOS los filtros
         return $coincideTitulo && $coincideAutor && $coincideEstado && $coincideLocalizacion && $coincidePrestado;
@@ -237,4 +243,3 @@ function volver()
     header("Location: index.php?ok=1");
     exit();
 }
-// function obtenerComic(id)
