@@ -1,4 +1,24 @@
+<?php
 
+session_start();
+require_once("./setcookies.php");
+ 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['nombreUsuario'];
+    if(empty($username)) {
+        echo "Introduce un usuario correcto!";
+    }
+    if ($username === "parsa" ) {
+        $_SESSION['parsa'] = $username;
+        $_SESSION['login-time'] = time();
+
+        header("location:bienvenida.php");
+        exit();
+    }else{
+        $error= "Usuario incorrecto";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,21 +39,5 @@
 
     </div>
 
-<?php
-
-session_start();
- 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['nombreUsuario'];
-    if(empty($username)) {
-        echo "Introduce el usuario correcto!";
-    }
-    if ($username === "parsa" ) {
-        $_SESSION['parsa'] = $username;
-        header("location: bienvenida.php");
-        exit();
-    }
-}
-?>
 </body>
 </html>
