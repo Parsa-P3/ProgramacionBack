@@ -1,0 +1,265 @@
+/* style.css - Tema Harry Potter */
+
+/* Fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap');
+/* Cinzel para títulos (más dramático), Merriweather para texto general (más legible) */
+
+:root {
+    /* Colores base para el tema */
+    --color-fondo-oscuro: #1a1a1a; /* Negro oscuro, como el Bosque Prohibido */
+    --color-fondo-claro: #2c2c2c; /* Gris oscuro, piedra de Hogwarts */
+    --color-texto-claro: #f0e6d6; /* Beige pergamino */
+    --color-borde: #5a4b3d; /* Marrón oscuro, madera antigua */
+    --color-primario: #7b1113; /* Rojo Gryffindor principal */
+    --color-secundario: #0e4c96; /* Azul Ravenclaw principal */
+    --color-acento-oro: #e8c44f; /* Dorado de las Casas / Snitch */
+    --color-acento-plata: #c0c0c0; /* Plata de Slytherin / Luna */
+    --color-acento-verde: #1a472a; /* Verde Slytherin */
+    --color-acento-amarillo: #ffdb00; /* Amarillo Hufflepuff */
+    --color-error: #dc3545; /* Rojo para mensajes de error */
+    --color-exito: #28a745; /* Verde para mensajes de éxito */
+}
+
+/* Estilos Generales */
+body {
+    font-family: 'Merriweather', serif;
+    background-color: var(--color-fondo-oscuro);
+    color: var(--color-texto-claro);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('img/harry-potter-4k-3840-x-2160-wallpaper-65ia7qsffn6yt3te.jpg'); /* Imagen de fondo sutil */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Sombra para mejor legibilidad */
+}
+
+/* Contenedor Principal (Hogwarts Common Room feel) */
+.container {
+    background-color: rgba(44, 44, 44, 0.95); /* Fondo oscuro semitransparente */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Sombra más pronunciada */
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    border: 2px solid var(--color-borde);
+    animation: fadeIn 0.5s ease-out; /* Animación de aparición */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos */
+h1, h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--color-acento-oro);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 2.2em;
+}
+
+/* Formularios */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--color-acento-plata);
+    letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-claro);
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+    border-color: var(--color-acento-oro);
+    box-shadow: 0 0 8px rgba(232, 196, 79, 0.5);
+    outline: none;
+}
+
+/* Botones */
+button {
+    background-color: var(--color-primario); /* Rojo Gryffindor */
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    font-family: 'Cinzel', serif;
+}
+
+button:hover {
+    background-color: var(--color-acento-oro); /* Dorado al pasar el ratón */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Botón Admin (específico para Admin Panel) */
+a[href="admin.php"] {
+    background-color: var(--color-acento-verde); /* Verde Slytherin */
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+    font-family: 'Cinzel', serif;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+a[href="admin.php"]:hover {
+    background-color: var(--color-secundario); /* Azul Ravenclaw al pasar el ratón */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Enlaces */
+a {
+    color: var(--color-acento-oro);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-acento-plata);
+    text-decoration: underline;
+}
+
+/* Mensajes (éxito/error) */
+.message {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: 'Merriweather', serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.message[style*="green"] { /* Para mensajes de éxito */
+    background-color: rgba(40, 167, 69, 0.2);
+    border: 1px solid var(--color-exito);
+    color: var(--color-exito);
+}
+
+.message[style*="red"] { /* Para mensajes de error */
+    background-color: rgba(220, 53, 69, 0.2);
+    border: 1px solid var(--color-error);
+    color: var(--color-error);
+}
+
+/* Líneas divisorias */
+hr {
+    border: none;
+    border-top: 1px solid var(--color-borde);
+    margin: 30px 0;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05); /* Brillo sutil */
+}
+
+/* Admin Panel - Tabla de Usuarios */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background-color: rgba(30, 30, 30, 0.9); /* Fondo más oscuro para la tabla */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden; /* Para que los bordes redondeados se vean bien */
+}
+
+th, td {
+    border: 1px solid var(--color-borde);
+    padding: 10px;
+    text-align: left;
+    color: var(--color-texto-claro);
+}
+
+th {
+    background-color: var(--color-fondo-claro);
+    font-family: 'Cinzel', serif;
+    color: var(--color-acento-oro);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(50, 50, 50, 0.8); /* Rayas de cebra sutiles */
+}
+
+tbody tr:hover {
+    background-color: rgba(70, 70, 70, 0.9);
+    transform: scale(1.01); /* Pequeño efecto al pasar el ratón */
+    transition: all 0.2s ease;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="email"],
+.edit-form select {
+    width: calc(100% - 10px); /* Ajuste para el padding */
+    padding: 8px;
+    margin-bottom: 0; /* Eliminar el margen inferior en el formulario de la tabla */
+    background-color: var(--color-fondo-oscuro);
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.edit-form button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    background-color: var(--color-secundario); /* Botones de actualización en azul */
+    box-shadow: none;
+}
+
+.edit-form button:hover {
+    background-color: var(--color-acento-oro);
+    transform: none;
+}
+
+/* Footer (opcional, si tienes uno) */
+footer {
+    margin-top: 40px;
+    font-size: 0.8em;
+    color: rgba(240, 230, 214, 0.7);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}

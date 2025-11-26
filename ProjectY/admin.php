@@ -1,0 +1,102 @@
+<?php
+require 'db.php'; 
+
+// controlar si el usuario ha iniciado sesión y es admin
+if (!$user->isLoggedIn() || $user->getUserRole() !== 'admin') {
+    header('Location: index.php');
+    exit();
+}
+
+$message = '';
+$result = ['success' => true];
+// Obtener todos los roles para el formulario de edición
+$allRoles = $user->getAllRoles(); 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'update') {
+    // Obtener datos POST según los nombres de los campos actualizados
+    $id = (int)$_POST['id'];
+    $nombreUsuario = trim(htmlspecialchars($_POST['nombreUsuario'] ?? '')); // Nuevo nombre de campo
+    $ApellidoUsuario = trim(htmlspecialchars($_POST['ApellidoUsuario'] ?? '')); // Nuevo nombre de campo
+    $emailUsuario = trim(htmlspecialchars($_POST['emailUsuario'] ?? ''));     // Nuevo nombre de campo
+    $role_id = (int)$_POST['role_id']; 
+    
+    // Llamar al método para actualizar la información del usuario
+    $result = $user->updateUserInfo($id, $nombreUsuario, $ApellidoUsuario, $emailUsuario, $role_id);
+    $message = $result['message'];
+}
+
+// Obtener la lista actualizada de usuarios (debe llamarse después del POST para obtener los datos nuevos)
+$allUsers = $user->getAllUsers();
+?>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .edit-form input[type="text"], .edit-form input[type="email"], .edit-form select { width: 90%; padding: 5px; box-sizing: border-box; }
+        .edit-form button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1000px;">
+        <h2>Admin Paneli: Kullanıcı Yönetimi</h2>
+        
+        <?php if (!empty($message)): ?>
+            <p class="message" style="color: <?php echo $result['success'] ? 'green' : 'red'; ?>;"><?php echo $message; ?></p>
+        <?php endif; ?>
+
+        <p><a href="index.php">Ana Sayfaya Dön</a></p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo electrónico</th>
+                    <th>Rol</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($allUsers as $u): ?>
+                    <tr>
+                        <form method="POST" class="edit-form">
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="id" value="<?php echo $u['id']; ?>">
+                            
+                            <td><?php echo $u['id']; ?></td>
+                            <td><input type="text" name="nombreUsuario" value="<?php echo htmlspecialchars($u['nombreUsuario']); ?>" required></td>
+                            
+                            <td><input type="text" name="ApellidoUsuario" value="<?php echo htmlspecialchars($u['ApellidoUsuario'] ?? ''); ?>"></td>
+                            
+                            <td><input type="email" name="emailUsuario" value="<?php echo htmlspecialchars($u['emailUsuario']); ?>" required></td>
+                            
+                            <td>
+                                <select name="role_id">
+                                    <?php foreach ($allRoles as $role): ?>
+                                        <option 
+                                            value="<?php echo $role['id']; ?>" 
+                                            <?php echo ($u['role_id'] == $role['id']) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($role['description']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="submit">Actualizar</button>
+                            </td>
+                        </form>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

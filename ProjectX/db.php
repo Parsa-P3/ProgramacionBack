@@ -9,7 +9,7 @@ try {
     $pdo = new PDO("sqlite:" . $database_file);
 
     // Establecer el modo de error (Esto nos permite ver errores SQL)
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch (PDOException $e) {
     // Si hay un error de conexión, mostrarlo y detener la ejecución
