@@ -24,6 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     $result = $user->updateUserInfo($id, $nombreUsuario, $ApellidoUsuario, $emailUsuario, $role_id);
     $message = $result['message'];
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    // Obtener el ID del usuario a eliminar
+    $id = (int)$_POST['id'];
+    
+    // Llamar al método para eliminar el usuario
+    $result = $user->Delete($id);
+    $message = $result['message'];
+}
 
 // Obtener la lista actualizada de usuarios (debe llamarse después del POST para obtener los datos nuevos)
 $allUsers = $user->getAllUsers();
@@ -44,14 +52,14 @@ $allUsers = $user->getAllUsers();
     </style>
 </head>
 <body>
-    <div class="container" style="max-width: 1000px;">
-        <h2>Admin Paneli: Kullanıcı Yönetimi</h2>
+    <div class="container" >
+        <h2> Panel de administración para admin </h2>
         
         <?php if (!empty($message)): ?>
             <p class="message" style="color: <?php echo $result['success'] ? 'green' : 'red'; ?>;"><?php echo $message; ?></p>
         <?php endif; ?>
 
-        <p><a href="index.php">Ana Sayfaya Dön</a></p>
+        <p><a href="index.php">Volver a la página principal</a></p>
         
         <table>
             <thead>
@@ -69,6 +77,7 @@ $allUsers = $user->getAllUsers();
                     <tr>
                         <form method="POST" class="edit-form">
                             <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="id" value="<?php echo $u['id']; ?>">
                             
                             <td><?php echo $u['id']; ?></td>
@@ -90,7 +99,8 @@ $allUsers = $user->getAllUsers();
                                 </select>
                             </td>
                             <td>
-                                <button type="submit">Actualizar</button>
+                                <button type="submit" name="action" value="update">Actualizar</button>
+                                <button type="submit" name="action" value="delete" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">Eliminar</button>
                             </td>
                         </form>
                     </tr>

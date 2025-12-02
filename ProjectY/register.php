@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          exit();
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -31,10 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registro de Usuario</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" >
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="max-width: 500px; align-items: center;">
         <h2>Nuevo Registro de Usuario</h2>
         <p class="message" style="color: <?php echo $result['success'] ? 'green' : 'red'; ?>;"><?php echo $message; ?></p>
         <form action="register.php" method="POST">

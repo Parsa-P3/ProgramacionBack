@@ -29,7 +29,7 @@ $userRole = $user->getUserRole(); // será 'admin' o 'user'
                 Ir al Panel de Administración
             </a>
         <?php endif; ?>
-        
+        <a href="home/index.html">Ir a Casas</a>
         <hr>
         <p><a href="logout.php" style="color: red;">Cerrar Sesión</a></p>
     </div>

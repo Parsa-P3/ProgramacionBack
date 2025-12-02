@@ -40,12 +40,11 @@ body {
 
 /* Contenedor Principal (Hogwarts Common Room feel) */
 .container {
+    width: 1200px;
     background-color: rgba(44, 44, 44, 0.95); /* Fondo oscuro semitransparente */
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Sombra más pronunciada */
-    max-width: 500px;
-    width: 90%;
     text-align: center;
     border: 2px solid var(--color-borde);
     animation: fadeIn 0.5s ease-out; /* Animación de aparición */
@@ -87,7 +86,6 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 select {
-    width: calc(100% - 20px);
     padding: 12px;
     margin-bottom: 20px;
     border: 1px solid var(--color-borde);
@@ -110,6 +108,7 @@ select:focus {
 
 /* Botones */
 button {
+    margin: 10px;
     background-color: var(--color-primario); /* Rojo Gryffindor */
     color: white;
     padding: 14px 25px;

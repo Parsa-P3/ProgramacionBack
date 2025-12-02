@@ -107,12 +107,14 @@ class User {
 
     public function getAllUsers() {
     // Consulta SQL para obtener todos los usuarios con sus roles
-    $sql = "SELECT u.id, u.nombreUsuario, u.emailUsuario, u.role_id, r.description AS role_description 
+    $sql = "SELECT u.id, u.nombreUsuario, u.ApellidoUsuario , u.emailUsuario, u.role_id, r.description AS role_description 
             FROM usuarios u
             INNER JOIN roles r ON u.role_id = r.id"; 
             
     try {
         $stmt = $this->pdo->query($sql);
+        // PDO es la clase de PHP para acceder a bases de datos
+        // FETCH_ASSOC para obtener un array asociativo
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         return [];
@@ -135,14 +137,26 @@ class User {
         }
     }
 
-    // YENİ: Oturum Kontrolü
     public function isLoggedIn() {
         return isset($_SESSION['user_id']);
     }
     
-    // YENİ: Rol Çekme
     public function getUserRole() {
         return $_SESSION['user_role'] ?? 'guest'; 
     }
     
+
+
+    public function Delete($id){
+        // código para eliminar usuario
+        $sql = "DELETE FROM usuarios WHERE id = ?";
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+            return ['success' => true, 'message' => " Usuario eliminado con éxito."];
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => " error en eliminar  " . $e->getMessage()];
+        }
+
+    }
 }
