@@ -1,0 +1,61 @@
+/* Genel Stil */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.grid-container {
+    display: grid;
+    /* 4x5 istendiği için, basitçe 4 sütunlu bir grid yapısı */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Karakter Kartı (Listeleme Sayfası) */
+.character-card {
+    display: block; /* Link olduğu için blok yapıyoruz */
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none; /* Link altını kaldırır */
+    color: #fff; /* Yazı rengini beyaz yap */
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    /* İstenen renkler JS'de dinamik olarak veriliyor */
+}
+
+.character-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+/* Detay Kartı (Ficha Sayfası) */
+.detail-card {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    color: white; 
+    text-align: center;
+}
+
+.detail-card img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Tablo Stili */
+#episode-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#episode-table th, #episode-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
