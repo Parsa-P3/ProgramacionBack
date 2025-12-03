@@ -1,6 +1,6 @@
 <?php
 
-// cuando llamamos a este archivo, incluimos la conexión y la clase User
+// cuando llamamos a este archivo, incluimos la conexión y la clase engine
 require 'db.php'; 
 
 $message = ''; 
@@ -19,10 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = $result['message'];
     
     // Si es exitoso, podemos redirigir al usuario a la página de login
-    if ($result['success']) {
-        header('Location: login.php');
-         exit();
+    if ($user->isLoggedIn() && $user->getUserRole() === 'admin' && $result['success']) {
+        header('Location: admin.php');
+        exit();
     }
+    if ($user->isLoggedIn() && $user->getUserRole() === 'user' && $result['success']) {
+    header('Location: login.php');
+    exit();
+}
+
 }
 
 ?>
@@ -35,9 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css" >
 </head>
 <body>
+    
+
+
     <div class="container" style="max-width: 500px; align-items: center;">
         <h2>Nuevo Registro de Usuario</h2>
-        <p class="message" style="color: <?php echo $result['success'] ? 'green' : 'red'; ?>;"><?php echo $message; ?></p>
+        <p class="message" ><?php echo $message; ?></p>
         <form action="register.php" method="POST">
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" required>
@@ -55,6 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
         <p>¿Ya tienes una cuenta? <a href="login.php">Iniciar Sesión</a></p>
+
+            <!-- ahora hay que añadir opcion de volver si el usuario es admin -->
+    <?php if ($user->isLoggedIn() && $user->getUserRole() === 'admin') : ?>
+        <p><a href="admin.php">Volver al Panel de Administración</a></p>
+    <?php endif; ?>
+    
     </div>
 </body>
 </html>
