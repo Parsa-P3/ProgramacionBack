@@ -1,7 +1,7 @@
 <?php
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
-require_once "./models/Clientes.php";
+require_once __DIR__ . "/../utils.php";
+require_once __DIR__ . "/../models/Clientes.php";
 
 
 $cli = new Cliente();
@@ -22,8 +22,8 @@ if (isset($_SESSION["usuario"])) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Listado de Clientes</title>
-    <link rel="stylesheet" href="./estilos/estilos.css">
-    <script src="./scripts/scripts.js"></script>
+    <link rel="stylesheet" href="../estilos/estilos.css">
+    <script src="../scripts/scripts.js"></script>
 </head>
 
 <body>
@@ -79,7 +79,7 @@ if (isset($_SESSION["usuario"])) {
                             <a class="btn secondary" href="listado_contactos.php?cliente_id=<?= $c->getId() ?>">
                                 Ver/Añadir Contactos
                             </a>
-                            <a class="btn editar" href="ficha_cliente.php?cliente_id=<?= $c->getId() ?>&listado=true">
+                            <a class="btn editar" href="../fichas/ficha_cliente.php?cliente_id=<?= $c->getId() ?>&listado=true">
                                 Editar
                             </a>
                             <button class="btn borrar" onclick="eliminarCliente(<?= $c->getId() ?>)">

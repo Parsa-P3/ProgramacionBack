@@ -1,8 +1,8 @@
 <?php
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
-require_once "./models/Usuarios.php";
-require_once "./models/Roles.php";
+require_once __DIR__ . "/../utils.php";
+require_once __DIR__ . "/../utils.php";
+require_once __DIR__ . "/../models/Roles.php";
 
 $usu = new Usuario();
 $rol = new Rol();
@@ -23,8 +23,8 @@ if (isset($_SESSION["usuario"])) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Listado de Usuarios</title>
-    <link rel="stylesheet" href="./estilos/estilos.css">
-    <script src="./scripts/scripts.js"></script>
+    <link rel="stylesheet" href="../estilos/estilos.css">
+    <script src="../scripts/scripts.js"></script>
 </head>
 
 <body>
@@ -76,7 +76,7 @@ if (isset($_SESSION["usuario"])) {
 
 
                     <a class="btn editar"
-                        href="ficha.php?usuario_id=<?= $u->getId() ?>&listado=true">
+                        href="../fichas/ficha.php?usuario_id=<?= $u->getId() ?>&listado=true">
                         Editar
                     </a>
 

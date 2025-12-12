@@ -1,10 +1,10 @@
 <?php
 
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
+require_once __DIR__ . "/../utils.php";
 
 //Incluyo mi clases necesarias
-require_once "./models/Contacto.php";
+require_once __DIR__ . "/../models/Contacto.php";
 
 // Compruebo la sesión y si no está conectado o la sesión caducó, me redirige al login
 if (!comprobarSesion()) {
@@ -14,7 +14,7 @@ if (!comprobarSesion()) {
 // **Rúbrica: Valida que solo un usuario conectado admin pueda añadir, borrar o modificar contactos (B-0.5)**
 $usu_conectado = $_SESSION["usuario"];
 if ($usu_conectado->getRolId() != 1) {
-    header('Location: listado_clientes.php?error=No tiene permisos de administrador para gestionar contactos');
+    header('Location: ../listados/listado_clientes.php?error=No tiene permisos de administrador para gestionar contactos');
     return;
 }
 
@@ -29,7 +29,7 @@ $accion = $_GET['action'] ?? '';
 // Verificamos si se ha enviado el formulario por POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Recogemos los datos (ya sanitizados por sanetizar.php incluido en utils.php)
+    // Recogemos los datos (ya sanitizados por engine/sanetizar.php incluido en utils.php)
     $nombre = $_POST['nombre'] ?? '';
     $apellidos = $_POST['apellidos'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -61,16 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             case 'anadir': // Añade: B-1
                 $cont->guardar($pdo);
                 // Redireccionamos al listado de contactos del cliente
-                header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
+                header('Location: listados/listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
                 break;
             case 'guardar': // Actualiza: B-1
                 $cont->guardar($pdo);
                 // Redireccionamos al listado de contactos del cliente
-                header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
+                header('Location: listados/listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
                 break;
             default:
                 // Redirigir por defecto
-                header('Location: listado_contactos.php?cliente_id=' . $cliente_id);
+                header('Location: listados/listado_contactos.php?cliente_id=' . $cliente_id);
                 break;
         }
     }
@@ -138,9 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $accion == 'eliminar') {
         $cont = $cont->obtenerPorId($pdo, $contacto_id);
         $cont->eliminar($pdo); // Elimina: B-1
         // Redirigimos al listado filtrado de ese cliente
-        header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
+        header('Location: ../listados/listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
     } else {
-        header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&error=ID de contacto no válido');
+        header('Location: ../listados/listado_contactos.php?cliente_id=' . $cliente_id . '&error=ID de contacto no válido');
     }
 }
 

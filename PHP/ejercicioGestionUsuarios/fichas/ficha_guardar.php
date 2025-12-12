@@ -1,11 +1,9 @@
 <?php
 
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
-
-//Incluyo mi clases necesarias
-require_once "./models/Usuarios.php";
-require_once "./models/Roles.php";
+require_once __DIR__ . "/../utils.php";//Incluyo mi clases necesarias
+require_once __DIR__ . "/../models/Usuarios.php";
+require_once __DIR__ . "/../models/Usuarios.php";
 
 //Me instancio mi clase de usuario
 $usu = new Usuario();
@@ -79,9 +77,9 @@ function volver($error = "", $list = false)
     //Volvemos a la página que ha hecho el submit en caso de error
     if ($error == "") {
         if ($list == true) {
-            header('Location: listado.php?ok=1');
+            header('Location: ../listados/listado.php?ok=1');
         } else {
-            header('Location: index.php?ok=1');
+            header('Location: ../index.php?ok=1');
         }
     } else {
         header('Location: ficha.php?error=' . $error . '&email=' . $email . '&nombre=' . $nombre . '&apellidos=' . $apellidos . '&usuario=' . $usuario . '&rol_id=' . $rol_id . '&usuario_id=' . $usuario_id . '');

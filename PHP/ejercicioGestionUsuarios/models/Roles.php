@@ -1,9 +1,6 @@
 <?php
 //Incluyo el control de errores 
-require_once(__DIR__ . "/../error.php");
-
-//Siempre esta bien modelar las clases
-//Modelado de clase de roles
+require_once(__DIR__ . "/../engine/error.php");
 class Rol
 {
     private $rol_id;

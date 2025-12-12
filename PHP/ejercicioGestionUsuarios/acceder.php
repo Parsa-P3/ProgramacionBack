@@ -4,10 +4,15 @@
 require_once "utils.php";
 
 //Me traigo el php de ficha guardar para usar la funcion de validar
-require_once "ficha_guardar.php";
+require_once "fichas/ficha_guardar.php";
 
 // Obtenemos la acción del query string
 $accion = $_GET['action'] ?? '';
+
+if ($accion === 'cerrarsesion') {
+    cerrarSesion(); // función de utils.php que hace session_destroy() y redirige a login.php
+    exit(); // Parar la ejecución
+}
 
 // echo "accion";
 // echo $accion;
@@ -43,7 +48,7 @@ function volverLogin($error = "")
 
     //Volvemos a la página que ha hecho el submit en caso de error
     if ($error == "") {
-        header('Location: listado.php?ok=1');
+        header('Location: listados/listado.php?ok=1');
     } else {
         header('Location: login.php?error=' . $error . '&usuario=' . $usuario . '');
     }

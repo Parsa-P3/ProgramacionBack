@@ -47,7 +47,7 @@ if ($accion == "sesioncaducada") {
     <div class="container">
         <h1>Login Usuario</h1>
 
-        <form method="post">
+        <form method="post" action="acceder.php?action=login">
             <div>
                 <label for="usuario">Usuario</label>
                 <input type="text" id="usuario" name="usuario" placeholder="Nombre de usuario"  value="<?= $usuario ?>">

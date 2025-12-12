@@ -33,6 +33,6 @@ function manejaExcepciones(Throwable $ex)
     echo "<b>Ocurrió un error:</b> " . htmlspecialchars($ex->getMessage());
 
     // También podrías redirigir, por ejemplo:
-    // header("Location: error.php?msg=" . urlencode($ex->getMessage()));
+    // header("Location: engine/error.php?msg=" . urlencode($ex->getMessage()));
     // exit;
 }

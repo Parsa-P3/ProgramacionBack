@@ -1,9 +1,9 @@
 <?php
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
+require_once __DIR__ . "/../utils.php";
 
 //Incluyo mi clases necesarias
-require_once "./models/Clientes.php";
+require_once __DIR__ . "/../models/Clientes.php";
 
 //Creo mis dos clases de las entidades que necesito
 $cli = new Cliente();
@@ -84,8 +84,8 @@ if (isset($_SESSION["usuario"])) {
     <?php else: ?>
     <title>Modificar Cliente</title>
     <?php endif; ?>
-    <link rel="stylesheet" href="./estilos/estilos.css">
-    <script src="./scripts/scripts.js"></script>
+    <link rel="stylesheet" href="../estilos/estilos.css">
+    <script src="../scripts/scripts.js"></script>
 </head>
 
 <body>

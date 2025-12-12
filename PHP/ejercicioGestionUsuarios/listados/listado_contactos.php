@@ -1,8 +1,8 @@
 <?php
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
-require_once "./models/Contacto.php";
-require_once "./models/Clientes.php"; // Necesario para obtener el nombre del cliente
+require_once __DIR__ . "/../utils.php";
+require_once __DIR__ . "/../models/Contacto.php";
+require_once __DIR__ . "/../models/Clientes.php"; // Necesario para obtener el nombre del cliente
 
 // Compruebo la sesión (control del tiempo de sesión del usuario B-1)
 if (!comprobarSesion()) {
@@ -35,8 +35,8 @@ $rol_id_usuario = $usu_conectado->getRolId();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Listado de Contactos</title>
-    <link rel="stylesheet" href="./estilos/estilos.css">
-    <script src="./scripts/scripts.js"></script>
+    <link rel="stylesheet" href="../estilos/estilos.css">
+    <script src="../scripts/scripts.js"></script>
 </head>
 
 <body>
@@ -59,11 +59,11 @@ $rol_id_usuario = $usu_conectado->getRolId();
                     Listado Global
                 </a>
                 <a href="#" onclick="javascript:IrListadoClientes()" class="btn primary anadir">
-                    ➕ Añadir Contacto (Seleccionar Cliente)
+                     Añadir Contacto (Seleccionar Cliente)
                 </a>
             <?php else: // En listado filtrado por cliente ?>
                 <a href="#" onclick="javascript:IrFichaContacto(<?= $cliente_id_filtro ?>)" class="btn primary anadir">
-                    ➕ Añadir Contacto
+                     Añadir Contacto
                 </a>
                 <a href="#" onclick="javascript:IrListadoContactos(0)" class="btn secondary anadir">
                     Ver Listado Global
@@ -97,7 +97,7 @@ $rol_id_usuario = $usu_conectado->getRolId();
                         <td class="acciones">
 
                             <a class="btn editar"
-                                href="ficha_contacto.php?contacto_id=<?= $c->getId() ?>&cliente_id=<?= $c->getClienteId() ?>">
+                                href="../fichas/ficha_contacto.php?contacto_id=<?= $c->getId() ?>&cliente_id=<?= $c->getClienteId() ?>">
                                 Editar
                             </a>
 

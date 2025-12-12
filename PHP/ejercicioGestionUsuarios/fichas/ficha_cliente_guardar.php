@@ -1,10 +1,10 @@
 <?php
 
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
+require_once __DIR__ . "/../utils.php";
 
 //Incluyo mi clases necesarias
-require_once "./models/Clientes.php";
+require_once __DIR__ . "/../models/Clientes.php";
 
 //Me instancio mi clase de cliente
 $cli = new Cliente();
@@ -80,7 +80,7 @@ function volver($error = "", $list = false)
     //Volvemos a la página que ha hecho el submit en caso de error
     if ($error == "") {
         if ($list == true) {
-            header('Location: listado_clientes.php?ok=1');
+            header('Location: ../listados/listado_clientes.php?ok=1');
         } else {
             header('Location: index.php?ok=1');
         }
@@ -111,12 +111,12 @@ function validar(): string
                 $error .= "El email no tiene el formato correcto--";
             }
 
-            
-            if (comprobarTelefono($telefono) == false) {
+            // TENGO QUE REVISAR!
+            if (comprobarTelefonoEspana($telefono) == false) {
                 $error .= "El telefono no tiene el formato +34 123456789 (9 digitos) o es incorrecto--";
             }
 
-            if (comprobarDocumento($cif) == false) {
+            if (comprobarCif($cif) == false) {
 $error .= "El CIF/NIF no tiene un formato válido. Debe ser 8 dígitos + letra (NIF), Y/X/Z + 7 dígitos + letra (NIE) o un formato corporativo (Ej: B12345678)--";            }
 
             if (!(isset($nombre)) || $nombre == "") {
@@ -133,7 +133,7 @@ $error .= "El CIF/NIF no tiene un formato válido. Debe ser 8 dígitos + letra (
                 $error .= "El email no tiene el formato correcto--";
             }
 
-            if (comprobarDocumento($cif) == false) {
+            if (comprobarCif($cif) == false) {
                 $error .= "El cif no tiene el formato correcto--";
             }
 

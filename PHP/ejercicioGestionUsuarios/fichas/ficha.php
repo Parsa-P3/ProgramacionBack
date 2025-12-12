@@ -1,12 +1,10 @@
 <?php
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
+require_once __DIR__ . "/../utils.php";
 
 //Incluyo mi clases necesarias
-require_once "./models/Usuarios.php";
-require_once "./models/Roles.php";
-
-//Creo mis dos clases de las entidades que necesito
+require_once __DIR__ . "/../models/Usuarios.php";
+require_once __DIR__ . "/../models/Roles.php";//Creo mis dos clases de las entidades que necesito
 $usu = new Usuario();
 $rol = new Rol();
 
@@ -86,8 +84,8 @@ if (isset($_SESSION["usuario"])) {
     <?php else: ?>
     <title>Modificar usuario</title>
     <?php endif; ?>
-    <link rel="stylesheet" href="./estilos/estilos.css">
-    <script src="./scripts/scripts.js"></script>
+    <link rel="stylesheet" href="../estilos/estilos.css">
+    <script src="../scripts/scripts.js"></script>
 </head>
 
 <body>

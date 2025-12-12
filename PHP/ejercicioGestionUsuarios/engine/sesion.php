@@ -1,11 +1,12 @@
 <?php
 
-require_once "./models/Usuarios.php";
+// incluimos nuestro fichero de usuarios
+require_once __DIR__ . "/../models/Usuarios.php";
 
-//$config = require_once "config.php";
 //Obligatorio en todas las páginas para la página tenga acceso a la sesion del servidor
 session_start();
 
+// metodo para crear sesion (con cookies)
 function crearSesion(Usuario $usu)
 {
     //Creo la nueva sesion de usuario con el objeto de usuario y asi tengo todo el usuario a mano
@@ -17,6 +18,7 @@ function crearSesion(Usuario $usu)
     setcookie("conectado", "true");
 }
 
+// metodo para borrar sesion
 function borrarSesion()
 {
     // Vacía la sesión correctamente
@@ -29,36 +31,27 @@ function borrarSesion()
 }
 
 
+// metodo para comprobar sesion
 function comprobarSesion(): bool
 {
     global $config;
     $salida = true;
     $durSesion = (int)$config['sesion']['duracion_seg'];
-    // print_r("++dursesion");
-    // print_r($config);
-    // print_r($config['sesion']['duracion_seg']);
-    // print_r($durSesion);
-    // print_r("--dursesion");
-    // print_r("++login_time");
-    // print_r($_SESSION["login_time"]);
-    // print_r("--login_time");
-
-    // print_r("++time");
-    // print_r(time());
-    // print_r("--time");
     //Esta funcion me comprueba si el usuario esta conectado en base a que haya pasado un minuto
     if ((time() - $_SESSION["login_time"]) > $durSesion) {
-        //Destruyo la sesion
+        //Si el tiempo de sesion supera el tiempo predefinido estruyo la sesion
         borrarSesion();
 
         //Actualizo mi variable de salida
         $salida = false;
+
         //Le envio de nuevo al login
         header('Location: login.php?accion=sesioncaducada');
     }
     return $salida;
 }
 
+// metodo para cerrar sesion
 function cerrarSesion()
 {
 
@@ -71,8 +64,6 @@ function cerrarSesion()
 }
 
 //Cada vez que cambio de página compruebo la sesion siempre y cuando tenga la cookie
-
-
 $conectado = (isset($_COOKIE["conectado"]) && $_COOKIE["conectado"] != "" ? true : false);
 if ($conectado == true) {
     comprobarSesion();

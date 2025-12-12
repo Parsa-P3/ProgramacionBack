@@ -1,10 +1,10 @@
 <?php
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
-require_once "utils.php";
+require_once __DIR__ . "/../utils.php";
 
 //Incluyo mi clases necesarias
-require_once "./models/Contacto.php";
-require_once "./models/Clientes.php";
+require_once __DIR__ .  "/../models/Contacto.php";
+require_once __DIR__ .  "/../models/Clientes.php";
 
 // Compruebo la sesión
 if (!comprobarSesion()) {
@@ -14,7 +14,7 @@ if (!comprobarSesion()) {
 // **Control de Acceso Admin**
 $usu_conectado = $_SESSION["usuario"];
 if ($usu_conectado->getRolId() != 1) {
-    header('Location: listado_clientes.php'); // Redirige si no es admin
+    header('Location: ../listados/listado_clientes.php'); // Redirige si no es admin
     return;
 }
 
@@ -73,7 +73,7 @@ if ($cliente_id_form != 0) {
     $nombre_cliente = $cliente->getNombre() . " " . $cliente->getApellidos();
 } else {
      // Si no hay cliente_id, no se puede crear/modificar un contacto
-    header('Location: listado_clientes.php?error=Debe seleccionar un cliente para gestionar sus contactos');
+    header('Location: listados/listado_clientes.php?error=Debe seleccionar un cliente para gestionar sus contactos');
     return;
 }
 ?>
@@ -85,8 +85,8 @@ if ($cliente_id_form != 0) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title><?= $nuevo ? 'Añadir' : 'Modificar' ?> Contacto</title>
-    <link rel="stylesheet" href="./estilos/estilos.css">
-    <script src="./scripts/scripts.js"></script>
+    <link rel="stylesheet" href="../estilos/estilos.css">
+    <script src="../scripts/scripts.js"></script>
 </head>
 
 <body>

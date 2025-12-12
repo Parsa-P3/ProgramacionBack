@@ -1,7 +1,7 @@
 <?php
 
 //Incluyo el control de errores
-require_once(__DIR__ . "/../error.php");
+require_once(__DIR__ . "/../engine/error.php");
 
 //Modelado de clase de Contacto
 class Contacto
