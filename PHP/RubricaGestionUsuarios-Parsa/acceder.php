@@ -9,8 +9,7 @@ require_once "ficha_guardar.php";
 // Obtenemos la acción del query string
 $accion = $_GET['action'] ?? '';
 
-// echo "accion";
-// echo $accion;
+ 
 
 // Verificamos si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -35,10 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         default:
             break;
     }
-    //echo "entra";
+    
 
 }
 
+// Redirige al login (o listado) después del intento de acceso
 function volverLogin($error = "")
 {
     global $usuario;

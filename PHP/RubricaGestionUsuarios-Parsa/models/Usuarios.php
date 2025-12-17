@@ -98,6 +98,7 @@ class Usuario
 
     public function guardar($pdo)
     {
+        // Guarda el usuario: inserta si es nuevo, actualiza si ya existe
         global $config;
         $claveEC = $config["pass"]["hash"];
         if ($this->usuario_id === null || $this->usuario_id === 0) {
@@ -140,6 +141,7 @@ class Usuario
 
     public static function obtenerPorId($pdo, $id)
     {
+        // Devuelve una instancia de Usuario por su id o un objeto vacío
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario_id = :id");
         $stmt->execute([':id' => $id]);
 
@@ -150,10 +152,11 @@ class Usuario
 
     public static function login($pdo, $usuario, $password)
     {
+        // Intenta autenticar un usuario por nombre y contraseña
         global $config;
         $claveEC = $config["pass"]["hash"];
 
-        //print_r($claveEC);
+        
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :usuario");
         $stmt->execute([':usuario' => $usuario]);
 
@@ -177,6 +180,7 @@ class Usuario
 
     public static function obtenerTodos($pdo)
     {
+        // Recupera todos los usuarios como objetos Usuario
         $stmt = $pdo->query("SELECT * FROM usuarios");
         $usuarios = [];
 
@@ -189,6 +193,7 @@ class Usuario
 
     public function eliminar($pdo)
     {
+        // Elimina el usuario si tiene un id válido
         if ($this->usuario_id != null) {
             $stmt = $pdo->prepare("DELETE FROM usuarios WHERE usuario_id = :id");
             $stmt->execute([':id' => $this->usuario_id]);

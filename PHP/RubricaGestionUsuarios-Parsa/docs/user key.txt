@@ -1,0 +1,9 @@
+para acceder a usuario Parsa (admin) : 
+
+Usuario : parsa
+Contraseña = parsa0909/E
+
+para acceder a usuario Jorge (usuario):
+
+Usuario : jorge
+Contraseña = jorge0909/E

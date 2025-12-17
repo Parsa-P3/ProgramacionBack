@@ -51,7 +51,7 @@ class Contacto
     public function setTelefono($telefono) { $this->telefono = $telefono; }
 
 
-    // ====== CRUD con PDO (B-1, R-0.5, M-0) ======
+    // ====== CRUD con PDO  ======
 
     /**
      * Guarda o actualiza un contacto en la base de datos.

@@ -1,14 +1,13 @@
 <?php
 //Me traigo el fichero que tiene todas las librerias básicas del proyecto
 require_once "utils.php";
+require_once "./models/Usuarios.php";
+require_once "./models/Roles.php";
 
 // Validar que existe sesión activa
 if (!validarSesionActiva()) {
     exit();
 }
-
-require_once "./models/Usuarios.php";
-require_once "./models/Roles.php";
 
 $usu = new Usuario();
 $rol = new Rol();
@@ -52,7 +51,7 @@ if (isset($_SESSION["usuario"])) {
         </button>
     </div>
         <?php if ($rol_id_usuario == 1): ?>
-        <a href="#" onclick="javascript:IrFicha(true)" class="btn primary anadir">➕ Añadir Usuario</a>
+        <a href="#" onclick="javascript:IrFicha(true)" class="btn primary anadir"> Añadir Usuario</a>
         <?php endif; ?>
 
         <table>

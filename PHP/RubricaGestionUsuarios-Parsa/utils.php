@@ -20,6 +20,8 @@ require_once "db.php";
 $db = new BaseDatos();
 $pdo = $db->getPdo();
 
+
+// Comprueba que una cadena cumple el patrón de un email válido
 function comprobarPatronEmail($email): bool
 {
     $salida = true;
@@ -28,7 +30,7 @@ function comprobarPatronEmail($email): bool
 
     return $salida;
 }
-
+// Comprueba si una cadena cumple formatos válidos de documento/CIF
 function comprobarDocumento($doc): bool
 {
     $salida = true;
@@ -38,6 +40,7 @@ function comprobarDocumento($doc): bool
     return $salida;
 }
 
+// Comprueba que la contraseña cumple requisitos mínimos (mayúscula, número, símbolo y longitud)
 function comprobarPassword($password): bool
 {
     $salida = true;
@@ -48,29 +51,8 @@ function comprobarPassword($password): bool
 
     return $salida;
 }
-function comprobarTelefono($telefono): bool
-{
-    $salida = true;
-    // Telefon numarasının +34 ile başlayıp ardından 9-15 arası rakam içermesini kontrol eder (basit bir uluslararası doğrulama için)
-    // Eğer sadece İspanya (+34) gerekiyorsa: /^\+34\s?(\d{9})$/
-    // Daha esnek uluslararası format: /^\+?\d{9,15}$/
-    $patron = "/^\+34\s?(\d{9})$/"; // Önerilen: İspanya için kesin format
-    
-    // UYARI DÜZELTME İÇİN ÖNEMLİ: Eğer alert mesajında '+34' uyarısı çıkmasını istiyorsak,
-    // hata mesajını daha sonra `ficha_guardar.php` ve `ficha_cliente_guardar.php`'de düzenleyeceğiz.
-    
-    $salida = preg_match($patron, $telefono);
 
-    return $salida;
-}
-
-
-/**
- * Comprueba si el teléfono tiene un formato de España válido.
- * Patrón: (opcional +34 o 0034) seguido de 9 dígitos que empiezan por 6, 7 o 9.
- * @param string $telefono Número de teléfono.
- * @return bool
- */
+// Comprueba que un teléfono tiene formato válido de España (+34/0034/34 y 9 dígitos)
 function comprobarTelefonoEspana($telefono): bool
 {
     // Elimina espacios, guiones y paréntesis para una validación más flexible
@@ -84,23 +66,13 @@ function comprobarTelefonoEspana($telefono): bool
     return preg_match($patron, $telefono) === 1;
 }
 
-/**
- * Valida que la edad sea >= 18 años
- * @param int $edad
- * @return bool
- */
+// Valida que la edad sea mayor o igual a 18
 function comprobarEdad($edad): bool
 {
     return (int)$edad >= 18;
 }
 
-/**
- * Comprueba si un email ya existe en la tabla de usuarios
- * @param PDO $pdo
- * @param string $email
- * @param int $usuario_id (opcional) ID del usuario actual para excluir en edición
- * @return bool true si el email ya existe
- */
+// Comprueba en la tabla `usuarios` si ya existe un email (opcionalmente excluyendo un id)
 function emailExisteUsuario($pdo, $email, $usuario_id = 0): bool
 {
     $sql = "SELECT COUNT(*) FROM usuarios WHERE email = :email";
@@ -116,13 +88,7 @@ function emailExisteUsuario($pdo, $email, $usuario_id = 0): bool
     return $stmt->fetchColumn() > 0;
 }
 
-/**
- * Comprueba si un usuario ya existe en la tabla de usuarios
- * @param PDO $pdo
- * @param string $usuario
- * @param int $usuario_id (opcional) ID del usuario actual para excluir en edición
- * @return bool true si el usuario ya existe
- */
+// Comprueba en la tabla `usuarios` si ya existe un nombre de usuario (excluyendo id si se pasa)
 function usuarioExiste($pdo, $usuario, $usuario_id = 0): bool
 {
     $sql = "SELECT COUNT(*) FROM usuarios WHERE usuario = :usuario";
@@ -138,13 +104,7 @@ function usuarioExiste($pdo, $usuario, $usuario_id = 0): bool
     return $stmt->fetchColumn() > 0;
 }
 
-/**
- * Comprueba si un email ya existe en la tabla de clientes
- * @param PDO $pdo
- * @param string $email
- * @param int $cliente_id (opcional) ID del cliente actual para excluir en edición
- * @return bool true si el email ya existe
- */
+// Comprueba en `clientes` si ya existe un email (excluye un cliente por id si se pasa)
 function emailExisteCliente($pdo, $email, $cliente_id = 0): bool
 {
     $sql = "SELECT COUNT(*) FROM clientes WHERE email = :email";
@@ -160,13 +120,7 @@ function emailExisteCliente($pdo, $email, $cliente_id = 0): bool
     return $stmt->fetchColumn() > 0;
 }
 
-/**
- * Comprueba si un CIF ya existe en la tabla de clientes
- * @param PDO $pdo
- * @param string $cif
- * @param int $cliente_id (opcional) ID del cliente actual para excluir en edición
- * @return bool true si el CIF ya existe
- */
+// Comprueba en `clientes` si un CIF ya está registrado (excluye id opcional)
 function cifExisteCliente($pdo, $cif, $cliente_id = 0): bool
 {
     $sql = "SELECT COUNT(*) FROM clientes WHERE cif = :cif";
@@ -182,13 +136,7 @@ function cifExisteCliente($pdo, $cif, $cliente_id = 0): bool
     return $stmt->fetchColumn() > 0;
 }
 
-/**
- * Comprueba si un email ya existe en la tabla de contactos
- * @param PDO $pdo
- * @param string $email
- * @param int $contacto_id (opcional) ID del contacto actual para excluir en edición
- * @return bool true si el email ya existe
- */
+// Comprueba en `contactos` si un email ya existe (excluye un contacto por id si se pasa)
 function emailExisteContacto($pdo, $email, $contacto_id = 0): bool
 {
     $sql = "SELECT COUNT(*) FROM contactos WHERE email = :email";
@@ -203,5 +151,3 @@ function emailExisteContacto($pdo, $email, $contacto_id = 0): bool
     $stmt->execute($params);
     return $stmt->fetchColumn() > 0;
 }
-
-//... (Si hay código después en utils.php, se mantiene)

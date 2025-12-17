@@ -1,41 +1,19 @@
 <?php
-
-//Me traigo el fichero que tiene todas las librerias básicas del proyecto
+// Preparar datos para crear o editar cliente
+// Carga utilidades, comprueba sesión y prepara variables para el formulario
 require_once "utils.php";
-
-// Validar que existe sesión activa
-if (!validarSesionActiva()) {
-    exit();
-}
-
-//Incluyo mi clases necesarias
+if (!validarSesionActiva()) exit();
 require_once "./models/Clientes.php";
 
-//Me instancio mi clase de cliente
 $cli = new Cliente();
-
-// Obtenemos parámetros del query string
 $cliente_id = (int)($_GET['cliente_id'] ?? 0);
 $error = $_GET['error'] ?? '';
 $list = $_GET['listado'] ?? false;
 
-// Variables para el formulario
-$nombre = "";
-$cif = "";
-$email = "";
-$telefono = "";
-$apellidos = "";
-$edad = 0;
-$nuevo = false;
+$nombre = ""; $cif = ""; $email = ""; $telefono = ""; $apellidos = ""; $edad = 0;
+$nuevo = $cliente_id === 0;
 
-// Verificamos si es nuevo o edición
-if ($cliente_id == 0) {
-    $nuevo = true;
-} else {
-    $nuevo = false;
-}
 
-// Si hay error, obtenemos los datos del GET para repoblar el formulario
 if ($error != "") {
     $nombre = $_GET['nombre'] ?? '';
     $cif = $_GET['cif'] ?? '';
@@ -45,7 +23,6 @@ if ($error != "") {
     $edad = (int)($_GET['edad'] ?? 0);
     echo "<script>alert('" . str_replace("--", "\\n", $error) . "')</script>";
 } else if ($cliente_id != 0) {
-    // Si no hay error y tenemos ID, cargamos los datos del cliente
     $cliente_obj = $cli->obtenerPorId($pdo, $cliente_id);
     if ($cliente_obj) {
         $nombre = $cliente_obj->getNombre();

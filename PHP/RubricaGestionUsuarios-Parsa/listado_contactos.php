@@ -59,11 +59,11 @@ $rol_id_usuario = $usu_conectado->getRolId();
                     Listado Global
                 </a>
                 <a href="#" onclick="javascript:IrListadoClientes()" class="btn primary anadir">
-                    ➕ Añadir Contacto (Seleccionar Cliente)
+                     Añadir Contacto (Seleccionar Cliente)
                 </a>
             <?php else: // En listado filtrado por cliente ?>
                 <a href="#" onclick="javascript:IrFichaContacto(<?= $cliente_id_filtro ?>)" class="btn primary anadir">
-                    ➕ Añadir Contacto
+                     Añadir Contacto
                 </a>
                 <a href="#" onclick="javascript:IrListadoContactos(0)" class="btn secondary anadir">
                     Ver Listado Global
