@@ -3,7 +3,6 @@
 //Incluyo el control de errores
 require_once(__DIR__ . "/../error.php");
 
-//Siempre esta bien modelar las clases
 //Modelado de clase de usuario
 class Cliente
 {

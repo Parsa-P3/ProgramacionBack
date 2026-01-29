@@ -8,14 +8,10 @@ class BaseDatos
      public function __construct()
     {
         global $config;
-        //print_r($config);
         //Inicio las propiedades necesarias en el constructor y hago la conexión la BBDD
         $bbdd = $config['database']['dbname'];
         // Conectar a SQLite
-       // echo  $bbdd ;
-        //echo  __DIR__ ;
-        //echo 'sqlite:' . __DIR__ . '/bbdd/'. $bbdd;
-        //$this->pdo = new PDO('sqlite:' . __DIR__ . '/bbdd/'. $bbdd);
+       
         $this->pdo = new PDO('sqlite:' . __DIR__ . '/bbdd/usuarios.db');
     }
 

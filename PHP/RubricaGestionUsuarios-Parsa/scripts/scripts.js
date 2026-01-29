@@ -132,8 +132,6 @@ function cerrarSesion(){
     frm.submit();
 }
 
-//... (el código existente continúa arriba)
-
 //++funciones de contacto
 function IrListadoContactos(cliente_id) {
     if (cliente_id && cliente_id != 0) {

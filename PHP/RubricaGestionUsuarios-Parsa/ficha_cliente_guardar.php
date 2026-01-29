@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cli->setId($cliente_id);
 
     // Llamamos a la función correspondiente
+    // Acciones: guardar, eliminar o añadir cliente (valida antes de operar)
     switch ($accion) {
         case 'guardar':
             $error = validar();
@@ -69,6 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Redirige de vuelta al formulario o listado con datos en caso de error/ok
+// Devuelve al formulario con los datos si hay errores, o al listado en caso de éxito
 function volver($error = "", $list = false)
 {
 
@@ -103,6 +106,8 @@ function volver($error = "", $list = false)
     exit();
 }
 
+// Valida los datos del formulario de cliente y devuelve cadena de errores
+// Comprueba campos obligatorios, formatos y unicidad (email/cif)
 function validar(): string
 {
     global $accion;

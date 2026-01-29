@@ -1,5 +1,5 @@
 <?php
-//Me traigo el fichero que tiene todas las librerias básicas del proyecto
+// Carga utilidades y valida sesión; muestra el listado de clientes
 require_once "utils.php";
 
 // Validar que existe sesión activa
@@ -52,8 +52,8 @@ if (isset($_SESSION["usuario"])) {
     </div>
     
     <?php if ($rol_id_usuario == 1): ?>
-            <a href="#" onclick="javascript:IrFichaCliente(true)" class="btn primary anadir">➕ Añadir Clientes</a>
-            <a href="#" onclick="javascript:IrListadoContactos(0)" class="btn primary anadir">📄 Listado Global de
+            <a href="#" onclick="javascript:IrFichaCliente(true)" class="btn primary anadir"> Añadir Clientes</a>
+            <a href="#" onclick="javascript:IrListadoContactos(0)" class="btn primary anadir"> Listado Global de
                 Contactos</a>
         <?php endif; ?>
 

@@ -1,35 +1,29 @@
 <?php
 
-//Me traigo el fichero que tiene todas las librerias básicas del proyecto
+// Cargar utilidades y modelos necesarios
 require_once "utils.php";
-
-//Incluyo mi clases necesarias
 require_once "./models/Contacto.php";
 
-// Validar que existe sesión activa
+// Comprobar que la sesión está activa
 if (!validarSesionActiva()) {
     exit();
 }
 
-// **Rúbrica: Valida que solo un usuario conectado admin pueda añadir, borrar o modificar contactos (B-0.5)**
+// Control de acceso: solo administradores pueden gestionar contactos
 $usu_conectado = $_SESSION["usuario"];
 if ($usu_conectado->getRolId() != 1) {
     header('Location: listado_clientes.php?error=No tiene permisos de administrador para gestionar contactos');
     return;
 }
 
-
-// Me instancio mi clase de contacto
+// Instanciar objeto Contacto y obtener la acción solicitada
 $cont = new Contacto();
-
-// Obtenemos la acción del query string
 $accion = $_GET['action'] ?? '';
 
-
-// Verificamos si se ha enviado el formulario por POST
+// Manejar envío del formulario por POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Recogemos los datos (ya sanitizados por sanetizar.php incluido en utils.php)
+    // Recoger datos del formulario
     $nombre = $_POST['nombre'] ?? '';
     $apellidos = $_POST['apellidos'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -37,31 +31,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contacto_id = (int)($_POST['contacto_id'] ?? 0);
     $cliente_id = (int)($_POST['cliente_id'] ?? 0);
 
-    // Creamos/Cargamos el objeto Contacto
+    // Si es edición, cargar el contacto existente
     if ($contacto_id != 0) {
         $cont = $cont->obtenerPorId($pdo, (int)$contacto_id);
     }
 
+    // Preparar objeto con los datos recibidos
     $cont->setClienteId($cliente_id);
     $cont->setNombre($nombre);
     $cont->setApellidos($apellidos);
     $cont->setEmail($email);
     $cont->setTelefono($telefono);
-    $cont->setId($contacto_id); // Necesario para el UPDATE
+    $cont->setId($contacto_id);
 
-    // 1. Validamos los datos (Rúbrica 2 - Valida el contenido)
+    // Validar los datos recibidos
     $error = validar($accion);
 
+    // Si hay errores, volver al formulario con los datos
     if ($error != "") {
-        // Hay errores, volvemos a la ficha con el mensaje de error y los datos
         volverFicha($error);
     } else {
-        // No hay errores, procedemos con la acción CRUD
+        // Ejecutar la acción solicitada (crear/actualizar)
+        // Se captura excepciones PDO para detectar violaciones de unicidad
+        // (teléfono/email duplicados) y mostrar mensajes amigables al usuario
         switch ($accion) {
-            case 'anadir': // Añade: B-1
+            case 'anadir':
                 try {
                     $cont->guardar($pdo);
-                    // Redireccionamos al listado de contactos del cliente
                     header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
                 } catch (PDOException $e) {
                     $msg = $e->getMessage();
@@ -74,10 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 break;
-            case 'guardar': // Actualiza: B-1
+            case 'guardar':
                 try {
                     $cont->guardar($pdo);
-                    // Redireccionamos al listado de contactos del cliente
                     header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
                 } catch (PDOException $e) {
                     $msg = $e->getMessage();
@@ -91,16 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 break;
             default:
-                // Redirigir por defecto
                 header('Location: listado_contactos.php?cliente_id=' . $cliente_id);
                 break;
         }
     }
 }
 
-/**
- * Función para validar el contenido del formulario. (Rúbrica 2)
- */
+// Valida y devuelve una cadena con errores si los hay
 function validar($accion): string
 {
     global $nombre;
@@ -113,20 +105,20 @@ function validar($accion): string
     $error = "";
 
     switch ($accion) {
-        case 'guardar': 
-        case 'anadir': 
+        case 'guardar':
+        case 'anadir':
             if (!isset($cliente_id) || $cliente_id == 0) {
                 $error .= "El contacto debe estar asociado a un cliente--";
             }
-            
+
             if (!isset($nombre) || $nombre == "") {
                 $error .= "Es necesario rellenar el campo nombre--";
             }
-            
+
             if (!isset($apellidos) || $apellidos == "") {
                 $error .= "Es necesario rellenar el campo apellidos--";
             }
-            
+
             if (!isset($email) || $email == "") {
                 $error .= "Es necesario rellenar el campo email--";
             } elseif (!comprobarPatronEmail($email)) {
@@ -136,7 +128,7 @@ function validar($accion): string
             } elseif ($accion == 'guardar' && emailExisteContacto($pdo, $email, $contacto_id)) {
                 $error .= "Error: el email ya está registrado en la base de datos--";
             }
-            
+
             if (!isset($telefono) || $telefono == "") {
                 $error .= "Es necesario rellenar el campo teléfono--";
             } elseif (!comprobarTelefonoEspana($telefono)) {
@@ -148,9 +140,7 @@ function validar($accion): string
     return $error;
 }
 
-/**
- * Redirige de vuelta al formulario con el error y los datos.
- */
+// Redirige de vuelta al formulario con los datos y mensaje de error
 function volverFicha($error = "")
 {
     global $nombre;
@@ -159,7 +149,6 @@ function volverFicha($error = "")
     global $telefono;
     global $contacto_id;
     global $cliente_id;
-    // Codificamos los datos para pasarlos por URL
     $params = [
         'contacto_id' => $contacto_id,
         'cliente_id' => $cliente_id,
@@ -173,16 +162,14 @@ function volverFicha($error = "")
     exit();
 }
 
-// Si la petición es GET y la acción es eliminar (viene del JS)
+// Manejar petición GET para eliminar contacto
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $accion == 'eliminar') {
     $contacto_id = (int)($_GET['contacto_id'] ?? 0);
     $cliente_id = (int)($_GET['cliente_id'] ?? 0);
-    
-    // Validamos que hay un ID de contacto
+
     if ($contacto_id != 0) {
         $cont = $cont->obtenerPorId($pdo, $contacto_id);
-        $cont->eliminar($pdo); // Elimina: B-1
-        // Redirigimos al listado filtrado de ese cliente
+        $cont->eliminar($pdo);
         header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&ok=1');
     } else {
         header('Location: listado_contactos.php?cliente_id=' . $cliente_id . '&error=ID de contacto no válido');

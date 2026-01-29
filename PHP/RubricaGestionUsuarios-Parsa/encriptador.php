@@ -16,7 +16,6 @@ $textoCifrado = openssl_encrypt($texto, $metodo, $clave, 0, $iv);
 
 // Para poder almacenar/transmitir, combinamos el IV con el texto cifrado en base64
 $mensajeSeguro = base64_encode($iv . $textoCifrado);
-//echo "Mensaje cifrado (base64 + IV): $mensajeSeguro\n";
 
 // ===== Descifrar =====
 // Primero, decodificar base64 y separar IV y texto
@@ -26,9 +25,9 @@ $textoCifradoRecuperado = substr($datosDecodificados, $iv_length);
 
 // Descifrar
 $textoOriginal = openssl_decrypt($textoCifradoRecuperado, $metodo, $clave, 0, $iv_recuperado);
-//echo "Texto descifrado: $textoOriginal\n";
 
 
+// Cifra un texto con AES-256-CBC 
 function cifrar($texto): string
 {
     global $metodo;
@@ -42,6 +41,7 @@ function cifrar($texto): string
     return $mensajeSeguro;
 }
 
+// Descifra un mensaje generado por `cifrar` y devuelve el texto original
 function descifrar($texto): string
 {
     global $metodo;

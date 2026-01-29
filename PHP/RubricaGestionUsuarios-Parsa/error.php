@@ -3,6 +3,7 @@
 // Activar manejador de errores
 set_error_handler("manejaErrores");
 set_exception_handler("manejaExcepciones");
+// Manejador personalizado para errores PHP (registra y muestra un mensaje mínimo)
 function manejaErrores($nivel, $mensaje, $fichero, $linea)
 {
     $mensaje = "Fecha: " . date("H:i d-m-Y") .
@@ -17,6 +18,7 @@ function manejaErrores($nivel, $mensaje, $fichero, $linea)
 }
 
 
+// Manejador personalizado para excepciones no capturadas
 function manejaExcepciones(Throwable $ex)
 {
     $mensaje = "Fecha: " . date("H:i d-m-Y") .

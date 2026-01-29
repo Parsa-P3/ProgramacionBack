@@ -1,47 +1,23 @@
 <?php
-//Me traigo el fichero que tiene todas las librerias básicas del proyecto
+// prepara datos para crear o editar un usuario
 require_once "utils.php";
 
-// Validar que existe sesión activa
 if (!validarSesionActiva()) {
     exit();
 }
 
-//Incluyo mi clases necesarias
 require_once "./models/Usuarios.php";
 require_once "./models/Roles.php";
 
-//Creo mis dos clases de las entidades que necesito
 $usu = new Usuario();
 $rol = new Rol();
 
-//Me traigo el query string del id
-$usuario_id = $_GET['usuario_id'] ?? '0';
-
-//Me traigo el query string del error si lo hubiera
+$usuario_id = (int)($_GET['usuario_id'] ?? 0);
 $error = $_GET['error'] ?? '';
-
-//Me traigo el query string de si viene de listado
 $listado = $_GET['listado'] ?? '';
 
-//Esta variable me indica si es nuevo
-$nuevo = false;
-
-//Esta variable me indica si es usuario normal y no admin
-$es_usuario = false;
-//Declaro un objeto usuario nuevo
-if (isset($usuario_id) == true && $usuario_id != 0) {
-    //Viene de listado
-    $nuevo = false;
-} else {
-    //Viene de inicio entonces es el alta de un usuario normal
-    $nuevo = true;
-}
-
-//echo $nuevo;
-
-//Si es nuevo lo creo vacio si no cargo sus datos
-//$usuario_id = 0;
+// Definición de valores por defecto
+$nuevo = $usuario_id === 0;
 $usuario = "";
 $email = "";
 $nombre = "";
@@ -49,10 +25,8 @@ $password = "";
 $apellidos = "";
 $rol_id = 0;
 
-//Obtengo por id mi usuario
 if ($error != "") {
-
-    //Si tengo error me traigo los datos del get por que me ha dado un error de validacion y no los quiero rellenar otra vez
+    // Si hay error, repoblar campos desde la URL
     $email = $_GET['email'] ?? '';
     $nombre = $_GET['nombre'] ?? '';
     $apellidos = $_GET['apellidos'] ?? '';
@@ -61,9 +35,9 @@ if ($error != "") {
     $rol_id = (int)($_GET['rol_id'] ?? 2);
     $usuario_id = (int)($_GET['usuario_id']  ?? 0);
     $error_html = '<div class="error-box">' . nl2br(htmlspecialchars(str_replace("--", "\n", $error))) . '</div>';
-} else {
-    //Cojo los datos del usuario
-    $usu = $usu->obtenerPorId($pdo, (int)$usuario_id);
+} else if (!$nuevo) {
+    // Cargar datos del usuario para edición
+    $usu = $usu->obtenerPorId($pdo, $usuario_id);
     $usuario = $usu->getUsuario();
     $email = $usu->getEmail();
     $nombre = $usu->getNombre();
@@ -72,8 +46,6 @@ if ($error != "") {
     $rol_id = $usu->getRolId();
 }
 
-
-//Extraigo el usuario conectado
 if (isset($_SESSION["usuario"])) {
     $usu_conectado = $_SESSION["usuario"];
     $rol_id_usuario = $usu_conectado->getRolId();
